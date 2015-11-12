@@ -1,0 +1,21 @@
+#ifndef FILEHANDLER_H
+#define FILEHANDLER_H
+
+#include <vector>
+
+class FileHandler {
+public:
+	FileHandler() = default;
+	FileHandler(const std::string&);
+	~FileHandler();
+	//Matrix& getMap() const;
+private:
+	void loadMap();
+	void loadBlocks();
+	//std::vector<Block> blocks;
+	//std::vector<Map> maps;
+	std::string projectName;
+	//std::vector<std::string> mapNames;
+};
+
+#endif

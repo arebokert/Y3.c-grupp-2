@@ -1,0 +1,5 @@
+Skapa körbar fil med:
+g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+
+Kompilera filerna med:
+g++ -std=c++11 -c filnamn.....
