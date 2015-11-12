@@ -16,12 +16,9 @@ Matrix::Matrix(int x, int y) {
 }
 
 Matrix::~Matrix() {
-  cout << "Trying to delete a" << endl;
-  cout << a[1] << endl;
   if(a != nullptr)
     //delete[] a;
   a = nullptr;
-  cout << "a deleted" << endl;
 }
 /*
 Matrix& Matrix::operator=(Matrix&& rhs) & noexcept {
@@ -31,7 +28,11 @@ Matrix& Matrix::operator=(Matrix&& rhs) & noexcept {
   return *this;
 }
 */
-int& Matrix::at(const int x, const int y) {
+int& Matrix::at(int x, int y) {
+  if(x >= width)
+    x = width - 1;
+  if(y >= height)
+    y = height -1;
   return a[x+width*y];
 }
 
@@ -50,11 +51,8 @@ Matrix Matrix::getArea(int fromX, int fromY, int toX, int toY) noexcept {
   
   for(int i = 0; i < temp.sizeX(); i++) {
     for(int j = 0; j < temp.sizeY(); j++) {
-      
       temp.at(i,j) = a[(i+fromX) + width*(j+fromY)];
-      cout << temp.at(i,j) << " ";
     }
-    cout << endl;
   }
 
   return temp;
