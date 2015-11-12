@@ -7,6 +7,11 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
     FileHandler fh{"test"};
+    int x{0};
+    int y{0};
+    sf::RenderTexture off_screen;
+    if(!off_screen.create(800,600))
+      std::cerr << "Failed to load off_screen texture" << std::endl;
 
     while (window.isOpen())
     {
@@ -22,19 +27,32 @@ int main()
 	test1.setPosition(10,10);
 	test2.setPosition(10,50);
 	
-        window.clear();
-
-        Matrix mat = fh.getArea(1,1,32,32);
-
-	std::cout << mat.at(0,0) << std::endl;
+        
 	
-	for(int i{0}; i < 32; i++) {
-	  for(int j{0}; j < 32; j++) {
-	    test1.setPosition(i*32, j*32);
-	    test1.setTexture(fh.getBlock(mat.at(i,j)));
-	    window.draw(test1);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	  x++;
+	  
+	}
+
+        Matrix mat = fh.getArea(0,0,60,60);
+	off_screen.clear();
+	for(int i{x}; i < x+32; i++) {
+	  for(int j{y}; j < y+32; j++) {
+	    
+	    if(mat.at(i,j) != 0) {
+	      test1.setPosition((i-x)*32, (j-y)*32);
+	      test1.setTexture(fh.getBlock(mat.at(i,j)));
+	      off_screen.draw(test1);
+	    }
 	  }
 	}
+	
+	off_screen.display();
+	sf::Sprite sprit(off_screen.getTexture());
+	
+	window.clear();
+	
+	window.draw(sprit);
 	
         window.display();
     }
