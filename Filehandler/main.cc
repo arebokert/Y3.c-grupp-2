@@ -31,7 +31,17 @@ int main()
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 	  x++;
-	  
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	  if(x > 0)
+	    x--;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	  y++;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	  if(y > 0)
+	    y--;
 	}
 
         Matrix mat = fh.getArea(0,0,60,60);
