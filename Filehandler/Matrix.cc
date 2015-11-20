@@ -2,32 +2,49 @@
 #include "Matrix.h"
 using namespace std;
 
-Matrix::Matrix(int x, int y) {
-  
-  try {
-    a = new int[x*y];
-  }
-  catch(bad_alloc& ba) {
-    cerr << ba.what() << endl;
-  }
 
-  width = x;
-  height = y;
+Matrix::Matrix(const Matrix& other) : a(new int[other.sizeX()*other.sizeY()]) {
+  width = other.sizeX();
+  height = other.sizeY();
+  
+  for (int i{ 0 }; i < width*height; i++)
+    a[i] = other.a[i];
 }
 
-Matrix::~Matrix() {
+
+Matrix::Matrix(Matrix&& other) noexcept : a(other.a), width(other.width),
+  height(other.height)  {
+	other.a = nullptr;
+}
+
+Matrix::~Matrix() noexcept {
   if(a != nullptr)
-    //delete[] a;
+    delete[] a;
   a = nullptr;
 }
-/*
-Matrix& Matrix::operator=(Matrix&& rhs) & noexcept {
-  std::swap(a, rhs.a);
-  std::swap(width, rhs.width);
-  std::swap(height, rhs.height);
-  return *this;
+
+Matrix& Matrix::operator=(const Matrix& rhs) {
+
+	Matrix temp{ rhs };
+	*this = std::move(temp);
+	
+	return *this;
 }
-*/
+
+
+Matrix& Matrix::operator=(Matrix&& rhs) noexcept {
+	std::swap(a, rhs.a);
+	std::swap(width, rhs.width);
+	std::swap(height, rhs.height);
+	return *this;
+}
+
+
+void Matrix::fillWith(const int i) {
+  for(int j{0}; j < width*height; j++)
+    a[j] = i;
+}
+
 int& Matrix::at(int x, int y) {
   if(x >= width)
     x = width - 1;
@@ -46,15 +63,17 @@ int Matrix::sizeY() const {
 
 Matrix Matrix::getArea(int fromX, int fromY, int toX, int toY) noexcept {
  
-
+  
   Matrix temp{toX-fromX+1, toY-fromY+1};
+
   
   for(int i = 0; i < temp.sizeX(); i++) {
     for(int j = 0; j < temp.sizeY(); j++) {
       temp.at(i,j) = a[(i+fromX) + width*(j+fromY)];
     }
   }
-
+  
+  
   return temp;
 }
 
