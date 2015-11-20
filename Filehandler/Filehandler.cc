@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Filehandler.h"
-#include "Matrix.h"
+#include "../Tools/Matrix.h"
 #include <SFML/Graphics.hpp>
 
 using namespace std;
@@ -38,12 +38,12 @@ void FileHandler::loadMap() {
   //2.4. Skapa Map(storlek, namn, Matrix)
   //2.5. Lägg in Map i vectorn
   ifstream input;
-  input.open("../Data/Maps/test");
+  input.open("Data/Maps/test");
   
   int width;
   int height;
   if(!input) {
-    cerr << "Error loading file info.txt" << endl;
+	cerr << "Error loading file info.txt" << endl;
   }
   else {
     
@@ -54,7 +54,7 @@ void FileHandler::loadMap() {
     map = Matrix{width,height};
     for(int i = 0; i < width; i++)
       for(int j = 0; j < height; j++) {
-	input >> map.at(i,j);
+		input >> map.at(i,j);
       }
   }
  
@@ -72,10 +72,10 @@ void FileHandler::loadBlocks() {
   //2.3. Tilldela block bild från namn
   //2.4. Lägg in block i vectorn
   ifstream input;
-  input.open("../Data/Blocks/test");
+  input.open("Data/Blocks/test");
 
   blocks = new sf::Texture[16];
-  string s{"../Data/Blocks/"};
+  string s{"Data/Blocks/"};
   for(int i = 1; i <= 15; i++) {
 
     s.append(to_string(i));
@@ -84,7 +84,7 @@ void FileHandler::loadBlocks() {
     cout << "Couldn't load block: " << i << endl;
   else
     cout << "Loaded block: " << i << endl;
-  s = "../Data/Blocks/";
+  s = "Data/Blocks/";
   }
   
 }
