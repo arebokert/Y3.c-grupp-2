@@ -5,17 +5,17 @@
 class Object{
  public:
   ~Object() = default;
-  Object(int, int);
+ Object(int x, int y, int texID) : posX(x), posY(y), texID(texID){};
 
-  sf::Texture getText();
+  int getTexID();
   virtual void update() const = 0;
   int getX();
   int getY();
   
  protected:
   Object() = default;
-
-  int posX:
+  int texID;
+  int posX;
   int posY;
  
  private:
