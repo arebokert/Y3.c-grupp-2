@@ -2,10 +2,10 @@
 #define WEAPON_H
 #include <SFML/Graphics.hpp>
 
-class Weapon : Object
+class Weapon : Objects
 {
  public:
- Weapon() : Object(int, int, int);
+ Weapon(int x, int y, int texID) : Objects(x, y, texID);
   ~Weapon() = default;
  
  protected:

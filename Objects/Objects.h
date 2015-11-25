@@ -2,10 +2,10 @@
 #define OBJECT_H
 #include <SFML/Graphics.hpp>
 
-class Object{
+class Objects{
  public:
-  ~Object() = default;
- Object(int x, int y, int texID) : posX(x), posY(y), texID(texID){};
+  ~Objects() = default;
+ Objects(int x, int y, int texID) : posX(x), posY(y), texID(texID){};
 
   int getTexID();
   virtual void update() const = 0;
@@ -13,7 +13,7 @@ class Object{
   int getY();
   
  protected:
-  Object() = default;
+  Objects() = default;
   int texID;
   int posX;
   int posY;
