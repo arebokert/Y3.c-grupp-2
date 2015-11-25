@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <thread>
 #include "Tools/Matrix.h"
@@ -26,7 +27,17 @@ int main()
     
     sf::Sprite off_sprite(off_screen.getTexture());
     Matrix mat{};
+    
+    sf::Music backMusic;
+    backMusic.setPosition(0,0,0);
+    backMusic.setVolume(30);
+    backMusic.setLoop(true);
+    backMusic.setPitch(0);
 
+    backMusic.play();
+
+    if(!backMusic.openFromFile("Data/Sounds/SummerLight.mp3"))
+      cerr << "Could not open sound file" << endl;
     
     while (window.isOpen())
     {
