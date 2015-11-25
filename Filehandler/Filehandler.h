@@ -11,7 +11,7 @@ public:
 	FileHandler() = default;
 	FileHandler(const std::string&);
 	~FileHandler() = default;
-	//Matrix& getMap() const;
+	Matrix& getMap() {return map;};
 	void loadMap();
 	void loadBlocks();
 	sf::Texture& getBlock(int) const;

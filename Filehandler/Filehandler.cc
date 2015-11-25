@@ -38,7 +38,7 @@ void FileHandler::loadMap() {
   //2.4. Skapa Map(storlek, namn, Matrix)
   //2.5. Lägg in Map i vectorn
   ifstream input;
-  input.open("Data/Maps/test");
+  input.open("Data/Maps/Fieldtest1");
   
   int width;
   int height;
