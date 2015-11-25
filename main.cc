@@ -6,6 +6,8 @@
 #include "Tools/Matrix.h"
 #include "Filehandler/Filehandler.h"
 #include "Objects/Player.h"
+#include "Graphics/Camera.h"
+
 using namespace std;
 
 int main()
@@ -16,17 +18,33 @@ int main()
     FileHandler fh{"Fieldtest1"};
     int x{0};
     int y{0};
-    sf::RenderTexture off_screen;
-    sf::Sprite renderSprite;
     
+    sf::Sprite renderSprite;
+
     sf::Clock timer{};
     sf::Time deltaTime{sf::milliseconds(2)};
     
-    if(!off_screen.create(800,600))
+    sf::RenderTexture off_screen;
+    
+    if(!off_screen.create(256*32, 256*32))
       std::cerr << "Failed to load off_screen texture" << std::endl;
+
+    for(int i{0}; i < 256; i++) {
+      for(int j{0}; j < 256; j++) {
+	  
+	if(fh.getMap().at(i,j) != 0) {
+	    renderSprite.setPosition(i*32, j*32);
+	    renderSprite.setTexture(fh.getBlock(fh.getMap().at(i,j)));
+	    off_screen.draw(renderSprite);
+	  }
+	}
+      }
+    off_screen.display();
     
     sf::Sprite off_sprite(off_screen.getTexture());
     Matrix mat{};
+    
+    
     
     sf::Music backMusic;
     backMusic.setPosition(0,0,0);
@@ -35,6 +53,8 @@ int main()
     backMusic.setPitch(0);
 
     backMusic.play();
+    
+    Camera view{play1, 1024,800};
 
     if(!backMusic.openFromFile("Data/Sounds/SummerLight.mp3"))
       cerr << "Could not open sound file" << endl;
@@ -42,7 +62,7 @@ int main()
     while (window.isOpen())
     {
       timer.restart();
-      //cout << deltaTime.asSeconds() << endl;
+      cout << deltaTime.asSeconds() << endl;
       sf::Event event;
       while (window.pollEvent(event)) {
 	if (event.type == sf::Event::Closed)
@@ -71,28 +91,19 @@ int main()
       //Object-update
       
       //Camera-update
-      
+      view.update(play1);
       //Render
-	
+      
         
 
-      mat = fh.getArea(0,0,70,70);
+      
       window.clear();
-      for(int i{x}; i < x+32; i++) {
-	for(int j{y}; j < y+32; j++) {
-	  
-	  if(mat.at(i,j) != 0) {
-	    renderSprite.setPosition((i-x)*32, (j-y)*32);
-	    renderSprite.setTexture(fh.getBlock(mat.at(i,j)));
-	    window.draw(renderSprite);
-	  }
-	}
-      }
-      
-      
+      window.setView(view.getView());
+      window.draw(off_sprite);
       renderSprite.setPosition(play1.getX(), play1.getY());
       renderSprite.setTexture(fh.getBlock(1));
       window.draw(renderSprite);
+      
       window.display();
 
 

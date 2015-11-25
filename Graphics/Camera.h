@@ -2,21 +2,22 @@
 #define CAMERA_H
 
 #include <SFML/Graphics.hpp>
+#include "../Objects/Player.h"
 
 class Camera {
 public:
 	Camera() = default;
 	~Camera() = default;
-	Camera(const Player& a, const int b, const int c, sf::View& d) : 
-		player(a), width(b), height(c), view(d) {};
+	Camera(Player& a, const int b, const int c) : 
+		player(a), width(b), height(c) {};
 	sf::View& getView() {return view;};
+	void update(Player&);
 private:
-	Player player{};
+	Player player;
 	int width{0};
 	int height{0};
 	sf::View view{};
-	void update();
-	bool isNearBorder(int,int);
+	bool isNearBorder(int,int) {};
 };
 
 
