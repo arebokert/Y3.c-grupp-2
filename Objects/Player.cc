@@ -13,11 +13,12 @@ void Player::moveRight() {
 }
 
 void Player::jump() {
-  ySpeed = -20;
+  if(canJump){
+	ySpeed = -240;
+  }
 }
 
 void Player::update(Matrix& mat, double delta) {
-  
   //Speed will have to be dependent on delta time
   //Fix later when time-step has been added
   
@@ -38,9 +39,11 @@ void Player::update(Matrix& mat, double delta) {
     relPosY += 6;
   
   if(mat.at(floor(posX/32), floor(posY/32)+1) == 0) {
-      ySpeed += 400*delta;
+    ySpeed += 600*delta;
+    canJump = false;
   }
   else {
+	canJump = true;
     ySpeed = 0;
   }
   
