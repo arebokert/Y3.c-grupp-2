@@ -13,11 +13,12 @@ void Player::moveRight() {
 }
 
 void Player::jump() {
-  ySpeed = -40;
+  if(canJump){
+	ySpeed = -240;
+  }
 }
 
 void Player::update(Matrix& mat, double delta) {
-  
   //Speed will have to be dependent on delta time
   //Fix later when time-step has been added
   
@@ -38,16 +39,18 @@ void Player::update(Matrix& mat, double delta) {
     relPosY += 6;
   
   if(mat.at(floor(posX/32), floor(posY/32)+1) == 0) {
-      ySpeed += 5*delta;
+    ySpeed += 600*delta;
+    canJump = false;
   }
   else {
+	canJump = true;
     ySpeed = 0;
   }
   
 
   //Collision-check on x-axis
   if(mat.at(floor(posX/32)+1, floor(posY/32)) != 0 && xSpeed > 0 ||
-     mat.at(floor(posX/32)-1, floor(posY/32)) != 0 && xSpeed < 0)
+     mat.at(floor(posX/32), floor(posY/32)) != 0 && xSpeed < 0)
     xSpeed = 0;
   relPosX += xSpeed*delta;
   //Set new positions

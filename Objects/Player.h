@@ -15,6 +15,7 @@ public:
 	void jump();
 	void update(Matrix&, double);
 private:
+    bool canJump{true};
 	float ySpeed{0};
 	float xSpeed{0};
 	double relPosX{0};
