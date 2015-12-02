@@ -13,7 +13,7 @@ void Player::moveRight() {
 }
 
 void Player::jump() {
-  ySpeed = -64;
+  ySpeed = -40;
 }
 
 void Player::update(Matrix& mat, double delta) {
@@ -32,14 +32,18 @@ void Player::update(Matrix& mat, double delta) {
   //Collision-check beneath
   //cout << "Delta time: " << delta << endl;
   
-  relPosY += ySpeed*delta;
-  if(mat.at(floor(posX/32), floor(posY/32)+1) == 0) {
-    ySpeed += 9.82*delta;
-  }
+  if(ySpeed*delta < 6)
+    relPosY += ySpeed*delta;
   else
-    ySpeed = 0;
+    relPosY += 6;
   
-    
+  if(mat.at(floor(posX/32), floor(posY/32)+1) == 0) {
+      ySpeed += 5*delta;
+  }
+  else {
+    ySpeed = 0;
+  }
+  
 
   //Collision-check on x-axis
   if(mat.at(floor(posX/32)+1, floor(posY/32)) != 0 && xSpeed > 0 ||
