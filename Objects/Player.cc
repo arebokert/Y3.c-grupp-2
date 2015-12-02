@@ -13,7 +13,7 @@ void Player::moveRight() {
 }
 
 void Player::jump() {
-  ySpeed = -40;
+  ySpeed = -20;
 }
 
 void Player::update(Matrix& mat, double delta) {
@@ -38,7 +38,7 @@ void Player::update(Matrix& mat, double delta) {
     relPosY += 6;
   
   if(mat.at(floor(posX/32), floor(posY/32)+1) == 0) {
-      ySpeed += 5*delta;
+      ySpeed += 400*delta;
   }
   else {
     ySpeed = 0;
@@ -47,7 +47,7 @@ void Player::update(Matrix& mat, double delta) {
 
   //Collision-check on x-axis
   if(mat.at(floor(posX/32)+1, floor(posY/32)) != 0 && xSpeed > 0 ||
-     mat.at(floor(posX/32)-1, floor(posY/32)) != 0 && xSpeed < 0)
+     mat.at(floor(posX/32), floor(posY/32)) != 0 && xSpeed < 0)
     xSpeed = 0;
   relPosX += xSpeed*delta;
   //Set new positions
