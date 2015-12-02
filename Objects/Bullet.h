@@ -7,12 +7,18 @@
 class Bullet : Object
 {
  public:
- Bullet() : public Object();
+ Bullet(int nSpeed, int nDamage) : speed{nSpeed}, damage{nDamage};
+ fire(int);
+ update(Matrix&, playerY) const override;
+
  operator=(const Bullet&) = delete; 
 
  protected:
  Bullet(const& Bullet);
+ 
  private:
+ int speed;
+ int damage;
 }
 
 #endif
