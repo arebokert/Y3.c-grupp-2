@@ -7,10 +7,11 @@
 class Bullet : Object
 {
  public:
- Bullet() : Object(int, int, int);
- 
- protected:
+ Bullet() : public Object();
+ operator=(const Bullet&) = delete; 
 
+ protected:
+ Bullet(const& Bullet);
  private:
 }
 

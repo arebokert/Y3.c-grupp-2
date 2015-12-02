@@ -5,7 +5,7 @@
 class Weapon : Objects
 {
  public:
- Weapon(int x, int y, int texID) : Objects(x, y, texID);
+ Weapon(int x, int y, int texID, int speed, int damage) : Objects(x, y, texID, speed, damage);
   ~Weapon() = default;
  
  protected:
