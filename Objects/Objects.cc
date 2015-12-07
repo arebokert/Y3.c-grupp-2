@@ -1,14 +1,16 @@
 #include "Objects.h"
 
-Objects::getTexID(){
+int Objects::getTexID(){
   return texID;
 }
 
-Objects::getX(){
+int Objects::getX(){
   return posX;
 }
 
-Objects::getY(){
+int Objects::getY(){
   return posY;
 }
+
+void Objects::fire(){}
 

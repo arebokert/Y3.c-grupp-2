@@ -8,10 +8,10 @@ class Bullet : Object
 {
  public:
  Bullet(int nSpeed, int nDamage) : speed{nSpeed}, damage{nDamage};
- fire(int);
- update(Matrix&, playerY) const override;
+ void fire(int, int) const override;
+ void update(Matrix&, playerY) const override;
 
- operator=(const Bullet&) = delete; 
+ Bullet& operator=(const Bullet&) = delete; 
 
  protected:
  Bullet(const& Bullet);

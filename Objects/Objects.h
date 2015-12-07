@@ -11,7 +11,8 @@ class Objects{
   virtual void update() const = 0;
   int getX();
   int getY();
-  
+  void fire();  
+
  protected:
   Objects() = default;
   int texID;
