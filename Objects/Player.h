@@ -20,6 +20,8 @@ private:
 	float xSpeed{0};
 	double relPosX{0};
 	double relPosY{0};
+	int width{45};
+	int height{62};
 };
 
 
