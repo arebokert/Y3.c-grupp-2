@@ -1,5 +1,6 @@
 #ifndef MONSTER_H
 #define MONSTER_H
+#include <SFML/System.hpp>
 #include "Character.h"
 #include "Player.h"
 #include "../Tools/Matrix.h"
@@ -13,8 +14,9 @@ public:
 	void update(Matrix&, double, Player&);
 	
 private:
+	sf::Clock clock;
 	void attack(Player&);
-	bool goLeft{true};
+	bool goRight{true};
 	int damage;
 };
 

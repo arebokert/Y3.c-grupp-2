@@ -1,5 +1,6 @@
 #include "Monster.h"
 #include <math.h>
+#include <iostream>
 
 using namespace std;
 
@@ -47,15 +48,21 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
     
  //Checks the distance between the monster and player. 
  //If the distance in less than 20px (both X and Y value), the monster attacks the player
-  if(((getX()-play.getX()) >= 20 && (getY()-play.getY()) >= 20)
-	||((play.getX()-getX()) <= 20 && (play.getY()-getY()) <= 20))
+  if(((getX()-play.getX()) >= 40 && (getY()-play.getY()) >= 40)
+	||((play.getX()-getX()) <= 40 && (play.getY()-getY()) <= 40))
 	{
-		this->attack(play);
+		if(clock.getElapsedTime().asMilliseconds() >=3000)
+		{
+			this->attack(play);
+			clock.restart();
+		}
+		
 	}
   }
   
   void Monster::attack(Player& play)
-  {
+  {	
+	  cout << clock.getElapsedTime().asMilliseconds() << endl;
 	  play.setHp(play.getHp()-1);
   }
   
