@@ -6,6 +6,7 @@
 #include "Tools/Matrix.h"
 #include "Filehandler/Filehandler.h"
 #include "Objects/Player.h"
+#include "Objects/Monster.h"
 #include "Graphics/Camera.h"
 
 using namespace std;
@@ -59,7 +60,7 @@ int main()
   //if(!backMusic.openFromFile("Data/Sounds/SummerLight.mp3"))
   // cerr << "Could not open sound file" << endl;
     
-    
+  Monster mon1{10, 320, 10, 10}; 
   while (window.isOpen()) {
     sf::Time deltaCounter{sf::microseconds(0)};
     sf::Event event;
@@ -90,7 +91,7 @@ int main()
       //Player-update
       play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
       //Monster-update
-      
+      mon1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
       //Object-update
       
       //Camera-update

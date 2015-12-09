@@ -1,6 +1,5 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-
 #include "Character.h"
 #include "../Tools/Matrix.h"
 
@@ -18,8 +17,7 @@ private:
     bool canJump{true};
 	float ySpeed{0};
 	float xSpeed{0};
-	double relPosX{0};
-	double relPosY{0};
+	
 };
 
 
