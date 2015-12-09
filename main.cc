@@ -103,7 +103,7 @@ int main()
       //cout << deltaCounter.asMilliseconds() << endl;
       deltaCounter = deltaCounter + deltaTime;
     } while(deltaCounter < sf::milliseconds(15));
-
+	cout << play1.getHp() << endl;
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);

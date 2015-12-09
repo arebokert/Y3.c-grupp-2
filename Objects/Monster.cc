@@ -18,8 +18,21 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
 
   //Collision-check beneath
   //cout << "Delta time: " << delta << endl;
-	
-    //Collision-check on x-axis
+  
+  if(ySpeed*delta < 6)
+    relPosY += ySpeed*delta;
+  else
+    relPosY += 6;
+  
+  if(mat.at(floor(posX/32), floor(posY/32)+1) == 0) {
+    ySpeed += 600*delta;
+  }
+  else {
+    ySpeed = 0;
+  }
+  
+
+  //Collision-check on x-axis
   if(mat.at(floor(posX/32)+1, floor(posY/32)) != 0 && xSpeed > 0 ||
      mat.at(floor(posX/32), floor(posY/32)) != 0 && xSpeed < 0)
     xSpeed = 0;
@@ -27,19 +40,15 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
   //Set new positions
 
   if(posY != static_cast<int>(relPosY))
-	{
     posY = static_cast<int>(relPosY);
-	}
-  
-  if(posX != static_cast<int>(relPosX))
-	{
-    posX = static_cast<int>(relPosX);
-	} 
 
+  if(posX != static_cast<int>(relPosX))
+    posX = static_cast<int>(relPosX);
+    
  //Checks the distance between the monster and player. 
  //If the distance in less than 20px (both X and Y value), the monster attacks the player
-  
-  if((getX()-play.getX()) <= 20 && (getY()-play.getY()) <= 20)
+  if(((getX()-play.getX()) >= 20 && (getY()-play.getY()) >= 20)
+	||((play.getX()-getX()) <= 20 && (play.getY()-getY()) <= 20))
 	{
 		this->attack(play);
 	}
