@@ -4,7 +4,7 @@
 using namespace std;
 
 
-void Monster::update(Matrix& mat, double delta,Player& play) {
+void Monster::update(Matrix& mat, double delta, Player& play) {
   //Speed will have to be dependent on delta time
   //Fix later when time-step has been added
   
@@ -35,11 +35,13 @@ void Monster::update(Matrix& mat, double delta,Player& play) {
 	{
     posX = static_cast<int>(relPosX);
 	} 
+
  //Checks the distance between the monster and player. 
  //If the distance in less than 20px (both X and Y value), the monster attacks the player
-  if((getX()-play.getX()<=20)&&(getY()-play.getY()<=20)
+  
+  if((getX()-play.getX()) <= 20 && (getY()-play.getY()) <= 20)
 	{
-		attack();
+		this->attack(play);
 	}
   }
   

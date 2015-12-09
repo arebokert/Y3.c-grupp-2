@@ -107,7 +107,9 @@ int main()
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);
-
+    renderSprite.setPosition(mon1.getX(), mon1.getY());
+    renderSprite.setTexture(fh.getBlock(1));
+    window.draw(renderSprite);
     playerSprite.setPosition(play1.getX(), play1.getY());
     playerSprite.setTexture(fh.getPlayer(0));
 
