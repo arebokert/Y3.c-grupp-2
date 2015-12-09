@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Character.h"
+#include <SFML/Graphics.hpp>
 #include "../Tools/Matrix.h"
 
 class Player : public Character {

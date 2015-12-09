@@ -26,6 +26,15 @@ int main()
   sf::Time deltaTime{sf::milliseconds(2)};
     
   sf::RenderTexture off_screen;
+   
+  // Declare and load a font
+  sf::Font font;
+  font.loadFromFile("./font.ttf");
+  // Create a text
+  sf::Text text("hello", font);
+  text.setCharacterSize(30);
+  text.setStyle(sf::Text::Bold);
+  text.setColor(sf::Color::Red); 
     
   if(!off_screen.create(256*32, 256*32))
     std::cerr << "Failed to load off_screen texture" << std::endl;
@@ -114,6 +123,12 @@ int main()
     playerSprite.setTexture(fh.getPlayer(0));
 
     window.draw(playerSprite);
+     
+
+text.setPosition(play1.getX(), play1.getY()-25);
+// Draw it
+window.draw(text);
+
       
     window.display();
 
