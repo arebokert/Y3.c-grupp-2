@@ -83,6 +83,9 @@ int main()
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 	play1.jump();
       }
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
+	//play1.fire();
+      }
 	
       //Player-update
       play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);

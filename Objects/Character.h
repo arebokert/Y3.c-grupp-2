@@ -10,6 +10,11 @@ public:
 	int getHp() const {return hp;};
 	int getX() const {return posX;};
 	int getY() const {return posY;};
+	
+	int setHp(int h){hp = h;};
+	int setX(int x){posX = x;};
+	int setY(int y){posY = y;};
+	int setTexId(int txId){texId = txId;};
 	//void update(Matrix&) {};
 protected:
 	int hp{0};

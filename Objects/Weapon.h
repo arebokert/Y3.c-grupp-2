@@ -9,7 +9,9 @@ class Weapon : Objects
  public:
  Weapon(int x, int y, int texID, int w_speed, int w_damage) : Objects(x, y, texID), speed{w_speed}, damage{w_damage}{}
   ~Weapon() = default;
- operator=(const Weapon&) = delete; 
+ Weapon& operator=(const Weapon&) = delete; 
+ void fire(int, int);
+ void update() const;
 
  protected:
  Weapon(const Weapon&); 
