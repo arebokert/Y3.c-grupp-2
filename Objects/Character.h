@@ -24,6 +24,8 @@ protected:
 	int texId{0};
 	double relPosX{0};
 	double relPosY{0};
+	float ySpeed{0};
+	float xSpeed{0};
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "Monster.h"
+#include <math.h>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ void Monster::update(Matrix& mat, double delta,Player& play) {
 	} 
  //Checks the distance between the monster and player. 
  //If the distance in less than 20px (both X and Y value), the monster attacks the player
-  if((self.getX()-play.getX()=<20)&&(self.getY()-play.getY()=<20)
+  if((getX()-play.getX()<=20)&&(getY()-play.getY()<=20)
 	{
 		attack();
 	}
