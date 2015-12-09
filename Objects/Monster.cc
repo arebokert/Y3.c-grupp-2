@@ -20,6 +20,8 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
   //Collision-check beneath
   //cout << "Delta time: " << delta << endl;
   
+  
+  
   if(ySpeed*delta < 6)
     relPosY += ySpeed*delta;
   else
