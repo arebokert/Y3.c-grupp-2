@@ -22,6 +22,8 @@ protected:
 	int posX{0};
 	int posY{0};
 	int texId{0};
+	double relPosX{0};
+	double relPosY{0};
 };
 
 #endif
