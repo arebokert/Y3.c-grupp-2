@@ -21,7 +21,7 @@ LDFLAGS  += -L/sw/gcc-$(GCC4_V)/lib -static-libstdc++
 SFFLAGS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 # Objektkodsmoduler som ingår i det kompletta programmet.
-OBJECTS = main.o Filehandler.o Matrix.o Player.o Camera.o
+OBJECTS = main.o Filehandler.o Matrix.o Player.o Camera.o Monster.o
 
 # Huvudmål - skapas med kommandot 'make'.
 sfml-app: $(OBJECTS) Makefile
@@ -43,6 +43,9 @@ Player.o: $(OBJS)/Character.h $(OBJS)/Player.h $(OBJS)/Player.cc
 
 Camera.o: $(GRAPHICS)/Camera.h $(GRAPHICS)/Camera.cc 
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c $(GRAPHICS)/Camera.cc
+
+Monster.o: $(OBJS)/Character.h $(OBJS)/Monster.h $(OBJS)/Monster.cc
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c $(OBJS)/Monster.cc
 
 
 
