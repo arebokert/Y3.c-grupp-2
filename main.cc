@@ -12,40 +12,40 @@ using namespace std;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
-    sf::CircleShape player(50.0f);
-    Player play1{10, 320, 10, 10};
-    FileHandler fh{"Fieldtest1"};
-    int x{0};
-    int y{0};
+  sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
+  sf::CircleShape player(50.0f);
+  Player play1{10, 320, 10, 10};
+  FileHandler fh{"Fieldtest1"};
+  int x{0};
+  int y{0};
     
-    sf::Sprite renderSprite;
+  sf::Sprite renderSprite;
+  sf::Sprite playerSprite;
+  sf::Clock timer{};
+  sf::Time deltaTime{sf::milliseconds(2)};
+    
+  sf::RenderTexture off_screen;
+    
+  if(!off_screen.create(256*32, 256*32))
+    std::cerr << "Failed to load off_screen texture" << std::endl;
 
-    sf::Clock timer{};
-    sf::Time deltaTime{sf::milliseconds(2)};
-    
-    sf::RenderTexture off_screen;
-    
-    if(!off_screen.create(256*32, 256*32))
-      std::cerr << "Failed to load off_screen texture" << std::endl;
-
-    for(int i{0}; i < 256; i++) {
-      for(int j{0}; j < 256; j++) {
+  for(int i{0}; i < 256; i++) {
+    for(int j{0}; j < 256; j++) {
 	  
-	if(fh.getMap().at(i,j) != 0) {
-	    renderSprite.setPosition(i*32, j*32);
-	    renderSprite.setTexture(fh.getBlock(fh.getMap().at(i,j)));
-	    off_screen.draw(renderSprite);
-	  }
-	}
+      if(fh.getMap().at(i,j) != 0) {
+	renderSprite.setPosition(i*32, j*32);
+	renderSprite.setTexture(fh.getBlock(fh.getMap().at(i,j)));
+	off_screen.draw(renderSprite);
       }
-    off_screen.display();
+    }
+  }
+  off_screen.display();
     
-    sf::Sprite off_sprite(off_screen.getTexture());
-    Matrix mat{};
+  sf::Sprite off_sprite(off_screen.getTexture());
+  Matrix mat{};
     
     
-    /*
+  /*
     sf::Music backMusic;
     backMusic.setPosition(0,0,0);
     backMusic.setVolume(30);
@@ -53,24 +53,23 @@ int main()
     backMusic.setPitch(0);
 
     backMusic.play();
-    */
-    Camera view{play1, 1024,800};
+  */
+  Camera view{play1, 1024,800};
 
-    //if(!backMusic.openFromFile("Data/Sounds/SummerLight.mp3"))
-     // cerr << "Could not open sound file" << endl;
+  //if(!backMusic.openFromFile("Data/Sounds/SummerLight.mp3"))
+  // cerr << "Could not open sound file" << endl;
     
     
-    while (window.isOpen())
-    {
-      sf::Time deltaCounter{sf::microseconds(0)};
-      sf::Event event;
-      while (window.pollEvent(event)) {
-	   if (event.type == sf::Event::Closed)
-	   window.close();
-      }
+  while (window.isOpen()) {
+    sf::Time deltaCounter{sf::microseconds(0)};
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
+	window.close();
+    }
       
-      do{
-	  timer.restart();
+    do {
+      timer.restart();
       //Player-input
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 	play1.moveRight();
@@ -87,7 +86,6 @@ int main()
 	
       //Player-update
       play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
-      cout << static_cast<double>(deltaTime.asMicroseconds())/1000000 << endl;
       //Monster-update
       
       //Object-update
@@ -97,22 +95,25 @@ int main()
       //Render
       
         
-	  deltaTime = timer.getElapsedTime();
+      deltaTime = timer.getElapsedTime();
       //cout << deltaCounter.asMilliseconds() << endl;
       deltaCounter = deltaCounter + deltaTime;
-	  } while(deltaCounter < sf::milliseconds(15));
-      window.clear();
-      window.setView(view.getView());
-      window.draw(off_sprite);
-      renderSprite.setPosition(play1.getX(), play1.getY());
-      renderSprite.setTexture(fh.getBlock(1));
-      window.draw(renderSprite);
+    } while(deltaCounter < sf::milliseconds(15));
+
+    window.clear();
+    window.setView(view.getView());
+    window.draw(off_sprite);
+
+    playerSprite.setPosition(play1.getX(), play1.getY());
+    playerSprite.setTexture(fh.getPlayer(0));
+
+    window.draw(playerSprite);
       
-      window.display();
+    window.display();
 
 
       
-    }
+  }
 
-    return 0;
+  return 0;
 }
