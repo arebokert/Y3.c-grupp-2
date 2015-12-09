@@ -14,11 +14,14 @@ public:
 	Matrix& getMap() {return map;};
 	void loadMap();
 	void loadBlocks();
+	void loadPlayer();
 	sf::Texture& getBlock(int) const;
+	sf::Texture& getPlayer(int) const;
 	Matrix getArea(int,int,int,int);
 private:	
 	//std::vector<Block> blocks;
 	sf::Texture* blocks{nullptr};
+	sf::Texture* player{nullptr};
 	//std::vector<Map> maps;
 	Matrix map;
 	std::string projectName;
