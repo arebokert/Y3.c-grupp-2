@@ -27,6 +27,7 @@ FileHandler::FileHandler(const string& project) {
   //Vänta på threads med thread.join()
   t1.join();
   t2.join();
+  loadPlayer();
 }
 
 void FileHandler::loadMap() {
@@ -80,11 +81,31 @@ void FileHandler::loadBlocks() {
 
     s.append(to_string(i));
     s.append(".png");
-  if(!blocks[i-1].loadFromFile(s))
-    cout << "Couldn't load block: " << i << endl;
-  else
-    cout << "Loaded block: " << i << endl;
-  s = "Data/Blocks/";
+
+    if(!blocks[i-1].loadFromFile(s))
+      cout << "Couldn't load block: " << i << endl;
+    else
+      cout << "Loaded block: " << i << endl;
+    s = "Data/Blocks/";
+  }
+  
+}
+
+void FileHandler::loadPlayer() {
+  player = new sf::Texture[1];
+  string s{"Data/Player/"};
+
+  for(int i{0}; i < 1; i++) {
+
+    s.append(to_string(i));
+    s.append(".png");
+    cout << s << endl;
+
+    if(!player[i].loadFromFile(s))
+      cout << "Couldn't load playerTex: " << i << endl;
+    else
+      cout << "Loaded playerTex: " << i << endl;
+    s = "Data/Player/";
   }
   
 }
@@ -92,6 +113,10 @@ void FileHandler::loadBlocks() {
 
 sf::Texture& FileHandler::getBlock(int i) const {
   return blocks[i];
+}
+
+sf::Texture& FileHandler::getPlayer(int i) const {
+  return player[i];
 }
 
 
