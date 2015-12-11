@@ -17,6 +17,10 @@ void Player::jump() {
   }
 }
 
+void Player::fire(int direction){
+  return;
+}
+
 void Player::update(Matrix& mat, double delta) {
   //Speed will have to be dependent on delta time
   //Fix later when time-step has been added

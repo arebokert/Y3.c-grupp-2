@@ -56,20 +56,24 @@ int main()
   Matrix mat{};
     
     
-  /*
+
     sf::Music backMusic;
-    backMusic.setPosition(0,0,0);
-    backMusic.setVolume(30);
+    //backMusic.setPosition(0,0,0);
+    //backMusic.setVolume(30);
     backMusic.setLoop(true);
     backMusic.setPitch(0);
+    if(!backMusic.openFromFile("Data/Sounds/background.ogg"))
+      cout << "Unable to load music" << endl;
 
     backMusic.play();
-  */
   Camera view{play1, 1024,800};
 
   //if(!backMusic.openFromFile("Data/Sounds/SummerLight.mp3"))
   // cerr << "Could not open sound file" << endl;
-    
+  
+  //For testing
+  
+  //
   Monster mon1{10, 320, 10, 10}; 
   while (window.isOpen()) {
     sf::Time deltaCounter{sf::microseconds(0)};
@@ -97,7 +101,7 @@ int main()
 	play1.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
-	//play1.fire();
+	play1.fire(direction);
       }
 	
       //Player-update
@@ -115,7 +119,7 @@ int main()
       //cout << deltaCounter.asMilliseconds() << endl;
       deltaCounter = deltaCounter + deltaTime;
     } while(deltaCounter < sf::milliseconds(15));
-	cout << play1.getHp() << endl;
+    //cout << play1.getHp() << endl;
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);
@@ -124,7 +128,7 @@ int main()
     window.draw(renderSprite);
     playerSprite.setPosition(play1.getX(), play1.getY());
     playerSprite.setTexture(fh.getPlayer(direction));
-    cout << direction << endl;
+    //cout << direction << endl;
     window.draw(playerSprite);
      
 

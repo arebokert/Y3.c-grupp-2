@@ -13,6 +13,7 @@ public:
 	void moveLeft();
 	void moveRight();
 	void jump();
+	void fire(int);
 	void update(Matrix&, double);
 private:
     bool canJump{true};

@@ -92,7 +92,7 @@ void FileHandler::loadBlocks() {
 }
 
 void FileHandler::loadPlayer() {
-  player = new sf::Texture[1];
+  player = new sf::Texture[2];
   string s{"Data/Player/"};
 
   for(int i{0}; i < 2; i++) {
