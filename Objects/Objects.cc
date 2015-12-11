@@ -12,5 +12,4 @@ int Objects::getY(){
   return posY;
 }
 
-void Objects::fire(){}
 

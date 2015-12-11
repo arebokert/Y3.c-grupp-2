@@ -11,7 +11,7 @@ class Objects{
   virtual void update() const = 0;
   int getX();
   int getY();
-  void fire();  
+  virtual void fire(int, int) const = 0;  
 
  protected:
   Objects() = default;
@@ -20,5 +20,5 @@ class Objects{
   int posY;
  
  private:
-}
+};
 #endif

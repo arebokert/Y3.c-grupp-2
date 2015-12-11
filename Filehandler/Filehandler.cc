@@ -95,7 +95,7 @@ void FileHandler::loadPlayer() {
   player = new sf::Texture[1];
   string s{"Data/Player/"};
 
-  for(int i{0}; i < 1; i++) {
+  for(int i{0}; i < 2; i++) {
 
     s.append(to_string(i));
     s.append(".png");
@@ -106,7 +106,7 @@ void FileHandler::loadPlayer() {
     else
       cout << "Loaded playerTex: " << i << endl;
     s = "Data/Player/";
-  }
+   }
   
 }
 

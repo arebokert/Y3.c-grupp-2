@@ -21,6 +21,7 @@ int main()
   int y{0};
     
   sf::Sprite renderSprite;
+  int direction{0};
   sf::Sprite playerSprite;
   sf::Clock timer{};
   sf::Time deltaTime{sf::milliseconds(2)};
@@ -82,9 +83,11 @@ int main()
       timer.restart();
       //Player-input
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	direction = 0;
 	play1.moveRight();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	direction = 1;
 	play1.moveLeft();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
@@ -120,8 +123,8 @@ int main()
     renderSprite.setTexture(fh.getBlock(1));
     window.draw(renderSprite);
     playerSprite.setPosition(play1.getX(), play1.getY());
-    playerSprite.setTexture(fh.getPlayer(0));
-
+    playerSprite.setTexture(fh.getPlayer(direction));
+    cout << direction << endl;
     window.draw(playerSprite);
      
 

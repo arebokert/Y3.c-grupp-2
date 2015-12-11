@@ -1,13 +1,16 @@
 #include "Bullet.h"
+#include "../Tools/Matrix.h"
 #include "Objects.h"
-#include <SMFL/Graphics.hpp>
+//#include <SMFL/Graphics.hpp>
 
-Bullet::fire(int weapon_x, int weapon_y) const
+using namespace std;
+
+void Bullet::fire(int weapon_x, int weapon_y) const
 {
-  //vapnets relativa position beräknad i weapon.cc
+ 
 }
 
-Bullet::update() const
+void Bullet::update() const
 {
   
 }

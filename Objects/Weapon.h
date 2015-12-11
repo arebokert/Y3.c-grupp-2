@@ -1,16 +1,19 @@
 #ifndef WEAPON_H
 #define WEAPON_H
+#include "Objects.h"
 #include <SFML/Graphics.hpp>
-#include <Clock.hpp>
-#include <Time.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
 
-class Weapon : Objects
+
+
+class Weapon : public Objects
 {
  public:
  Weapon(int x, int y, int texID, int w_speed, int w_damage) : Objects(x, y, texID), speed{w_speed}, damage{w_damage}{}
   ~Weapon() = default;
  Weapon& operator=(const Weapon&) = delete; 
- void fire(int, int);
+ void fire(int, int) const override;
  void update() const;
 
  protected:
@@ -19,12 +22,11 @@ class Weapon : Objects
  private:
  Weapon() = default;
 
- //Eller hur var det tänkt?
  int speed;
  int damage; 
 
  sf::Time cooldown;
  sf::Clock timer;
-}
+};
 
 #endif

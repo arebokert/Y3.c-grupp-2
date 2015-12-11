@@ -2,14 +2,14 @@
 #include "Objects.h"
 #include "Bullet.h"
 #include <SFML/Graphics.hpp>
-#include <Clock.hpp>
-#include <Time.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
 
-Weapon::fire(int rel_x, int rel_y)
+void Weapon::fire(int rel_x, int rel_y) const
 {
   //
   //int trajectory = weapon_relative_pos()
-  Bullet b = new Bullet{speed, damage};
+  Bullet b{speed, damage};
   b.fire(rel_x, rel_y);
 }
 
