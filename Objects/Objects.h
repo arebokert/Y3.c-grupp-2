@@ -11,7 +11,7 @@ class Objects{
   virtual void update() const = 0;
   int getX();
   int getY();
-  virtual void fire(int, int) const = 0;  
+  virtual void fire(int, int, int) const = 0;  
 
  protected:
   Objects() = default;

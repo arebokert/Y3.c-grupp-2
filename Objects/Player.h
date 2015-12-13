@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Character.h"
+#include "Weapon.h"
 #include <SFML/Graphics.hpp>
 #include "../Tools/Matrix.h"
 
@@ -15,6 +16,7 @@ public:
 	void jump();
 	void fire(int);
 	void update(Matrix&, double);
+	void pickUpWeapon(Weapon&);
 private:
     bool canJump{true};
 	float ySpeed{0};

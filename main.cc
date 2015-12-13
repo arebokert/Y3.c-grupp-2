@@ -59,9 +59,9 @@ int main()
 
     sf::Music backMusic;
     //backMusic.setPosition(0,0,0);
-    //backMusic.setVolume(30);
+    backMusic.setVolume(30);
     backMusic.setLoop(true);
-    backMusic.setPitch(0);
+    //backMusic.setPitch(0);
     if(!backMusic.openFromFile("Data/Sounds/background.ogg"))
       cout << "Unable to load music" << endl;
 
@@ -98,6 +98,15 @@ int main()
 	
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	sf::SoundBuffer j_buff;
+	if(!j_buff.loadFromFile("Data/Sounds/jump.wav"))
+	  cout << "Error loading soundfile!" << endl;
+	sf::Sound j_sound;
+	j_sound.setBuffer(j_buff);
+	j_sound.setVolume(30);
+	j_sound.setPitch(0.8);
+	j_sound.play();
+	
 	play1.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {

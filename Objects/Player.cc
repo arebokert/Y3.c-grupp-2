@@ -18,7 +18,7 @@ void Player::jump() {
 }
 
 void Player::fire(int direction){
-  return;
+  //
 }
 
 void Player::update(Matrix& mat, double delta) {

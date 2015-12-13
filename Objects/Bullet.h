@@ -9,7 +9,7 @@ class Bullet : public Objects
 {
  public:
  Bullet(int nSpeed, int nDamage) : speed{nSpeed}, damage{nDamage}{};
- void fire(int, int) const override;
+ void fire(int, int, int) const override;
  void update() const override;
 
  Bullet& operator=(const Bullet&) = delete; 

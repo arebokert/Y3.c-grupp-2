@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void Bullet::fire(int weapon_x, int weapon_y) const
+void Bullet::fire(int weapon_x, int weapon_y, int direction) const
 {
  
 }

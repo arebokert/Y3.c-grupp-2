@@ -5,7 +5,7 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 
-void Weapon::fire(int rel_x, int rel_y) const
+void Weapon::fire(int rel_x, int rel_y, int direction) const
 {
   //
   //int trajectory = weapon_relative_pos()
