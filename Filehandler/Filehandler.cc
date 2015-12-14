@@ -132,14 +132,14 @@ void FileHandler::loadSounds() {
   background.setVolume(30);
   background.setLoop(true);
 
-  if(!background.openFromFile("Data/Sounds/background.ogg"))
+  if(!background.openFromFile("Data/Sounds/SummerLight.ogg"))
     cerr << "Unable to load music file" << endl;
 
-  if(!j_buff.loadFromFile("Data/Sounds/jump.wav"))
+  if(!j_buff.loadFromFile("Data/Sounds/jump.ogg"))
     cerr << "Unable to load jump sound file" << endl;
 
   jumpSound.setBuffer(j_buff);
-  jumpSound.setVolume(30);
+  jumpSound.setVolume(100);
   jumpSound.setPitch(0.8);
 }
 
