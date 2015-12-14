@@ -15,7 +15,7 @@ class Weapon : public Objects
  Weapon& operator=(const Weapon&) = delete; 
  void fire(int, int, int) const override;
  void update() const;
- void update(int, int, int);
+ void update(int, int);
  void setEquipped();
 
  protected:

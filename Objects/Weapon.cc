@@ -24,7 +24,7 @@ void Weapon::update() const
 {
 }
 
-void Weapon::update(int rel_x, int rel_y, int direction)
+void Weapon::update(int rel_x, int rel_y)
 {
   
 
