@@ -27,6 +27,7 @@ class Weapon : public Objects
  int speed;
  int damage;
  bool equipped; 
+ //std::vector<Bullet> bullets_;
 
  sf::Time cooldown;
  sf::Clock timer;

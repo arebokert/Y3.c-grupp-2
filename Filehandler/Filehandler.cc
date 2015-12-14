@@ -5,6 +5,7 @@
 #include "Filehandler.h"
 #include "../Tools/Matrix.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 
@@ -19,15 +20,21 @@ using namespace std;
 
 FileHandler::FileHandler(const string& project) {
   projectName = project;
-  //Skapa threads för alla load funktioner
+  //Create threads for each load function
   //Thread-safe, read-only
   thread t1(&FileHandler::loadMap, this);
   thread t2(&FileHandler::loadBlocks, this);
-  
+  thread t3(&FileHandler::loadPlayer, this);
+  thread t4(&FileHandler::loadSounds, this);
+
   //Vänta på threads med thread.join()
   t1.join();
   t2.join();
-  loadPlayer();
+  t3.join();
+  t4.join();
+
+  //Loading player seperately due to hardware concurrency
+  //loadPlayer();
 }
 
 void FileHandler::loadMap() {
@@ -74,25 +81,33 @@ void FileHandler::loadBlocks() {
   //2.4. Lägg in block i vectorn
   ifstream input;
   input.open("Data/Blocks/test");
-
+  
+  concurrent.lock();
   blocks = new sf::Texture[16];
+  concurrent.unlock();
+
   string s{"Data/Blocks/"};
   for(int i = 1; i <= 15; i++) {
 
     s.append(to_string(i));
     s.append(".png");
-
+    
     if(!blocks[i-1].loadFromFile(s))
       cout << "Couldn't load block: " << i << endl;
     else
       cout << "Loaded block: " << i << endl;
+    
     s = "Data/Blocks/";
   }
   
 }
 
 void FileHandler::loadPlayer() {
+
+  concurrent.lock();
   player = new sf::Texture[2];
+  concurrent.unlock();
+
   string s{"Data/Player/"};
 
   for(int i{0}; i < 2; i++) {
@@ -101,13 +116,31 @@ void FileHandler::loadPlayer() {
     s.append(".png");
     cout << s << endl;
 
+    
     if(!player[i].loadFromFile(s))
       cout << "Couldn't load playerTex: " << i << endl;
     else
       cout << "Loaded playerTex: " << i << endl;
+    
+
     s = "Data/Player/";
    }
   
+}
+
+void FileHandler::loadSounds() {
+  background.setVolume(30);
+  background.setLoop(true);
+
+  if(!background.openFromFile("Data/Sounds/background.ogg"))
+    cerr << "Unable to load music file" << endl;
+
+  if(!j_buff.loadFromFile("Data/Sounds/jump.wav"))
+    cerr << "Unable to load jump sound file" << endl;
+
+  jumpSound.setBuffer(j_buff);
+  jumpSound.setVolume(30);
+  jumpSound.setPitch(0.8);
 }
 
 
@@ -122,4 +155,12 @@ sf::Texture& FileHandler::getPlayer(int i) const {
 
 Matrix FileHandler::getArea(int x1, int y1, int x2, int y2)  {
   return map.getArea(x1,y1,x2,y2);
+}
+
+sf::Music& FileHandler::getMusic() {
+  return background;
+}
+
+sf::Sound& FileHandler::getJumpSound() {
+  return jumpSound;
 }
