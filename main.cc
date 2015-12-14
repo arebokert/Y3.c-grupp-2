@@ -14,7 +14,6 @@ using namespace std;
 int main()
 {
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
-  sf::CircleShape player(50.0f);
   Player play1{10, 320, 10, 10};
   FileHandler fh{"Fieldtest1"};
   int x{0};
@@ -53,27 +52,14 @@ int main()
   off_screen.display();
     
   sf::Sprite off_sprite(off_screen.getTexture());
-  Matrix mat{};
-    
-    
+  
+  //Start background music
+  fh.getMusic().play();
 
-    sf::Music backMusic;
-    //backMusic.setPosition(0,0,0);
-    backMusic.setVolume(30);
-    backMusic.setLoop(true);
-    //backMusic.setPitch(0);
-    if(!backMusic.openFromFile("Data/Sounds/background.ogg"))
-      cout << "Unable to load music" << endl;
 
-    backMusic.play();
   Camera view{play1, 1024,800};
 
-  //if(!backMusic.openFromFile("Data/Sounds/SummerLight.mp3"))
-  // cerr << "Could not open sound file" << endl;
-  
-  //For testing
-  
-  //
+
   Monster mon1{10, 320, 10, 10}; 
   while (window.isOpen()) {
     sf::Time deltaCounter{sf::microseconds(0)};
@@ -98,15 +84,7 @@ int main()
 	
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-	sf::SoundBuffer j_buff;
-	if(!j_buff.loadFromFile("Data/Sounds/jump.wav"))
-	  cout << "Error loading soundfile!" << endl;
-	sf::Sound j_sound;
-	j_sound.setBuffer(j_buff);
-	j_sound.setVolume(30);
-	j_sound.setPitch(0.8);
-	j_sound.play();
-	
+	fh.getJumpSound().play();
 	play1.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {

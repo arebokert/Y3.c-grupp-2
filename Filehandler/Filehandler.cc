@@ -131,10 +131,10 @@ void FileHandler::loadPlayer() {
 void FileHandler::loadSounds() {
   background.setVolume(30);
   background.setLoop(true);
+
   if(!background.openFromFile("Data/Sounds/background.ogg"))
     cerr << "Unable to load music file" << endl;
 
-  sf::SoundBuffer j_buff;
   if(!j_buff.loadFromFile("Data/Sounds/jump.wav"))
     cerr << "Unable to load jump sound file" << endl;
 

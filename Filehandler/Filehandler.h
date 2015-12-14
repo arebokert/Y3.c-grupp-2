@@ -33,6 +33,7 @@ private:
 	//std::vector<std::string> mapNames;
 	sf::Music background;
 	sf::Sound jumpSound;
+	sf::SoundBuffer j_buff;
 	sf::Mutex concurrent{};
 };
 
