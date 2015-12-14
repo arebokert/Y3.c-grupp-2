@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include "Character.h"
 #include "Weapon.h"
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "../Tools/Matrix.h"
 
@@ -16,14 +17,16 @@ public:
 	void jump();
 	void fire(int);
 	void update(Matrix&, double);
-	void pickUpWeapon(Weapon&);
+	bool pickUpWeapon(Weapon*);
+	void switchWeapon(int);
 private:
     bool canJump{true};
 	float ySpeed{0};
 	float xSpeed{0};
 	int width{45};
 	int height{62};
-	
+	std::vector<Weapon*> weapons;
+	Weapon* activeWeapon;
 };
 
 

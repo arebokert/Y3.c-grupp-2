@@ -1,5 +1,8 @@
 #include "Player.h"
+#include "Weapon.h"
 #include <math.h>
+#include <vector>
+#include <iterator>
 #include <iostream>
 using namespace std;
 
@@ -17,8 +20,22 @@ void Player::jump() {
   }
 }
 
+bool Player::pickUpWeapon(Weapon* new_wep){
+  weapons.push_back(new_wep);
+  return true;
+}
+
+void Player::switchWeapon(int pressed){
+  if(pressed > weapons.size()){
+    return;
+  }
+  activeWeapon = weapons.at(pressed);
+}
+
 void Player::fire(int direction){
-  //
+  if(activeWeapon != nullptr){
+    activeWeapon->fire(static_cast<int>(relPosX), static_cast<int>(relPosY), direction);
+  }
 }
 
 void Player::update(Matrix& mat, double delta) {
@@ -70,8 +87,5 @@ void Player::update(Matrix& mat, double delta) {
   //Reset x-axis speed from player input
   xSpeed = 0;
   
-  
-
-
-  
+  activeWeapon->update(static_cast<int>(relPosX), static_cast<int>(relPosY));
 }
