@@ -155,6 +155,9 @@ int main()
           playerSprite.setTexture(fh.getPlayer(3));
         }
       }
+      else if(elapsedTime >= 2500){
+        animationTimer.restart();
+      }
     }
     else {
       playerSprite.setTexture(fh.getPlayer(0));
