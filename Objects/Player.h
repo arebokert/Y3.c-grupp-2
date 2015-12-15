@@ -12,6 +12,7 @@ public:
 		relPosX = static_cast<double>(x);
 		relPosY = static_cast<double>(y);
 	};
+	
 	void moveLeft();
 	void moveRight();
 	void jump();

@@ -38,6 +38,15 @@ void Player::fire(int direction){
   }
 }
 
+//calls function that updates the hp bar over the player
+void Character::updateHpString(){
+	std::string tempHp{""};
+	for(int i{0};i<=getHp();i++){
+		tempHp.append("I");
+	}
+	setHpString(tempHp);
+}
+
 void Player::update(Matrix& mat, double delta) {
   //Speed will have to be dependent on delta time
   //Fix later when time-step has been added
@@ -88,4 +97,7 @@ void Player::update(Matrix& mat, double delta) {
   xSpeed = 0;
   
   activeWeapon->update(static_cast<int>(relPosX), static_cast<int>(relPosY));
+  
+  //calls function that updates the hp bar over the player
+   updateHpString();
 }

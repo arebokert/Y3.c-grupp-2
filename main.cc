@@ -26,12 +26,15 @@ int main()
   sf::Time deltaTime{sf::milliseconds(2)};
     
   sf::RenderTexture off_screen;
-   
-  // Declare and load a font
+  
+  
+  
+  
+  // Renders a hp bar over players
+  std::string hp{play1.getHpString()};
   sf::Font font;
   font.loadFromFile("./font.ttf");
-  // Create a text
-  sf::Text text("hello", font);
+  sf::Text text(hp, font);
   text.setCharacterSize(30);
   text.setStyle(sf::Text::Bold);
   text.setColor(sf::Color::Red); 
@@ -41,7 +44,7 @@ int main()
 
   for(int i{0}; i < 256; i++) {
     for(int j{0}; j < 256; j++) {
-	  
+	 
       if(fh.getMap().at(i,j) != 0) {
 	renderSprite.setPosition(i*32, j*32);
 	renderSprite.setTexture(fh.getBlock(fh.getMap().at(i,j)));
@@ -106,7 +109,7 @@ int main()
       //cout << deltaCounter.asMilliseconds() << endl;
       deltaCounter = deltaCounter + deltaTime;
     } while(deltaCounter < sf::milliseconds(15));
-    //cout << play1.getHp() << endl;
+   //cout << play1.getHp() << endl;
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);
@@ -117,18 +120,13 @@ int main()
     playerSprite.setTexture(fh.getPlayer(direction));
     //cout << direction << endl;
     window.draw(playerSprite);
-     
-
-text.setPosition(play1.getX(), play1.getY()-25);
-// Draw it
-window.draw(text);
-
-      
-    window.display();
-
-
-      
+	text.setPosition(play1.getX(), play1.getY()-30);
+	// Draw it
+	window.draw(text);
+	//updates hp bar
+    hp=play1.getHpString();
+    text.setString(hp);
+    window.display(); 
   }
-
   return 0;
 }
