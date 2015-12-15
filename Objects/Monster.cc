@@ -56,7 +56,8 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
     posX = static_cast<int>(relPosX);
     
  //Checks the distance between the monster and player. 
- //If the distance in less than 40px (both X and Y value), the monster attacks the player
+ //If the distance in less than 40px (both X and Y value) and atleast 3 seconds
+ //have passed since the last attack the monster attacks the player
 	if(clock.getElapsedTime().asMilliseconds() >=3000)
 	{
 		if((std::abs(getX()-play.getX()) >=0 && std::abs(getX()-play.getX())<=40)|| 
@@ -70,10 +71,11 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
 		{
 			this->attack(play);
 		}
-	
+
 	clock.restart();
   }
 }
+//Function that enables the Monster to attack the player
   void Monster::attack(Player& play)
   {	
 	  cout << clock.getElapsedTime().asMilliseconds() << endl;

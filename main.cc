@@ -63,8 +63,7 @@ int main()
 
 
   Camera view{play1, 1024,800};
-
-
+  
   Monster mon1{10, 320, 10, 10}; 
   while (window.isOpen()) {
     sf::Time deltaCounter{sf::microseconds(0)};
@@ -114,7 +113,7 @@ int main()
       //cout << deltaCounter.asMilliseconds() << endl;
       deltaCounter = deltaCounter + deltaTime;
     } while(deltaCounter < sf::milliseconds(15));
-   //cout << play1.getHp() << endl;
+    //cout << play1.getX() << endl<< mon1.getX() << endl;
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);
@@ -122,10 +121,11 @@ int main()
     renderSprite.setTexture(fh.getBlock(1));
     window.draw(renderSprite);
     playerSprite.setPosition(play1.getX(), play1.getY());
+    //This if-statement changes the sprite when the player moves
     if(direction != 0){
       int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
-      if(elapsedTime >= 500){
-        if(counter >= 5){
+      if(elapsedTime >= 100){
+        if(counter >= 3){
           counter = 0;
         }
         if(direction == 1){

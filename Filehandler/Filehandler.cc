@@ -105,12 +105,12 @@ void FileHandler::loadBlocks() {
 void FileHandler::loadPlayer() {
 
   concurrent.lock();
-  player = new sf::Texture[2];
+  player = new sf::Texture[8];
   concurrent.unlock();
 
   string s{"Data/Player/"};
 
-  for(int i{0}; i < 8; i++) {
+  for(int i{0}; i < 7; i++) {
 
     s.append(to_string(i));
     s.append(".png");
