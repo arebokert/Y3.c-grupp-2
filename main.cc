@@ -24,6 +24,7 @@ int main()
   sf::Sprite playerSprite;
   sf::Clock timer{};
   sf::Clock animationTimer{};
+  int counter;
   sf::Time deltaTime{sf::milliseconds(2)};
     
   sf::RenderTexture off_screen;
@@ -124,44 +125,18 @@ int main()
     if(direction != 0){
       int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
       if(elapsedTime >= 500){
+        if(counter >= 5){
+          counter = 0;
+        }
         if(direction == 1){
-          playerSprite.setTexture(fh.getPlayer(1));
+          playerSprite.setTexture(fh.getPlayer(counter));
         } 
         else {
-          playerSprite.setTexture(fh.getPlayer(4));
+          playerSprite.setTexture(fh.getPlayer(counter+3));
         }
-      }
-      else if(elapsedTime >= 1000){
-        if(direction == 1){
-          playerSprite.setTexture(fh.getPlayer(2));
-        } 
-        else {
-          playerSprite.setTexture(fh.getPlayer(5));
-        }
-      }
-      else if(elapsedTime >= 1500){
-        if(direction == 1){
-          playerSprite.setTexture(fh.getPlayer(1));
-        } 
-        else {
-          playerSprite.setTexture(fh.getPlayer(4));
-        }
-      }
-      else if(elapsedTime >= 2000){
-        if(direction == 1){
-          playerSprite.setTexture(fh.getPlayer(0));
-        } 
-        else {
-          playerSprite.setTexture(fh.getPlayer(3));
-        }
-      }
-      else if(elapsedTime >= 2500){
+        counter++;
         animationTimer.restart();
       }
-    }
-    else {
-      playerSprite.setTexture(fh.getPlayer(0));
-      animationTimer.restart();
     }
     //cout << direction << endl;
     window.draw(playerSprite);
