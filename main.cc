@@ -21,6 +21,9 @@ int main()
     
   sf::Sprite renderSprite;
   int direction{0};
+  //Variable lastDirection keeps track of the last movements of the player
+  //i.e movement before player stops.
+  int lastDirection{0};
   sf::Sprite playerSprite;
   sf::Clock timer{};
   sf::Clock animationTimer{};
@@ -79,21 +82,34 @@ int main()
       //Player-input
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 	direction = 1;
+	lastDirection = 1;
 	play1.moveRight();
       }
       else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 	direction = -1;
+	lastDirection = -1;
 	play1.moveLeft();
       }
       else {
         direction = 0;
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) 
+      {
 	
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) 
+      {
 	fh.getJumpSound().play();
 	play1.jump();
+	if(direction == 1)
+	{
+		playerSprite.setTexture(fh.getPlayer(6));
+	}
+	else if (direction == -1)
+	{
+		playerSprite.setTexture(fh.getPlayer(7));
+	}
+	
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
 	play1.fire(direction);
@@ -126,21 +142,36 @@ int main()
     //This if-statement changes the sprite when the player moves
     if(direction != 0){
       int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
-      if(elapsedTime >= 100){
-        if(counter >= 3){
-          counter = 0;
+      if(elapsedTime >= 100)
+      {
+		if(counter >= 3)
+        {
+			counter = 0;
         }
-        if(direction == 1){
-          playerSprite.setTexture(fh.getPlayer(counter));
+        if(direction == 1)
+        {
+			playerSprite.setTexture(fh.getPlayer(counter));
         } 
-        else {
-          playerSprite.setTexture(fh.getPlayer(counter+3));
+        else
+        {
+			playerSprite.setTexture(fh.getPlayer(counter+3));
         }
         cout << counter << endl;
         counter++;
         animationTimer.restart();
       }
     }
+    
+    //these two else-ifs checks the last direction of the players movement
+    //to properly set texture when player stop moving
+    else if (lastDirection == -1)
+    {
+		playerSprite.setTexture(fh.getPlayer(3));
+	}
+	else if (lastDirection == 1)
+	{
+		playerSprite.setTexture(fh.getPlayer(0));
+	}
     //cout << direction << endl;
     window.draw(playerSprite);
 	text.setPosition(play1.getX(), play1.getY()-30);
