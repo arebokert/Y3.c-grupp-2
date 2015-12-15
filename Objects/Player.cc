@@ -38,11 +38,11 @@ void Player::fire(int direction){
   }
 }
 
-//calls function that updates the hp bar over the player
+//Function that updates the hp bar over the player
 void Character::updateHpString(){
 	std::string tempHp{""};
 	for(int i{0};i<=getHp();i++){
-		tempHp.append("I");
+		tempHp.append("i");
 	}
 	setHpString(tempHp);
 }
