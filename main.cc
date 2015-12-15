@@ -24,20 +24,21 @@ int main()
   sf::Sprite playerSprite;
   sf::Clock timer{};
   sf::Clock animationTimer{};
-  int counter;
+  int counter{0};
   sf::Time deltaTime{sf::milliseconds(2)};
-    
+  //Set initial texture to playerSprite
+  playerSprite.setTexture(fh.getPlayer(0));
   sf::RenderTexture off_screen;
   
   
   
   
-  // Renders a hp bar over players
+  //Renders a hp bar over players
   std::string hp{play1.getHpString()};
   sf::Font font;
   font.loadFromFile("./font.ttf");
   sf::Text text(hp, font);
-  text.setCharacterSize(30);
+  text.setCharacterSize(20);
   text.setStyle(sf::Text::Bold);
   text.setColor(sf::Color::Red); 
     
@@ -121,6 +122,7 @@ int main()
     renderSprite.setTexture(fh.getBlock(1));
     window.draw(renderSprite);
     playerSprite.setPosition(play1.getX(), play1.getY());
+    
     //This if-statement changes the sprite when the player moves
     if(direction != 0){
       int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
@@ -134,6 +136,7 @@ int main()
         else {
           playerSprite.setTexture(fh.getPlayer(counter+3));
         }
+        cout << counter << endl;
         counter++;
         animationTimer.restart();
       }
