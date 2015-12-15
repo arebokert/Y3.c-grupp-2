@@ -43,7 +43,7 @@ void Character::updateHpString(){
 	std::string tempHp{""};
 	for(int i{0};i<=getHp();i++)
 	{
-		tempHp.append("i");
+		tempHp.append("*");
 	}
 	setHpString(tempHp);
 }

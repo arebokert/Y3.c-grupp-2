@@ -33,9 +33,6 @@ int main()
   playerSprite.setTexture(fh.getPlayer(0));
   sf::RenderTexture off_screen;
   
-  
-  
-  
   //Renders a hp bar over players
   std::string hp{play1.getHpString()};
   sf::Font font;
@@ -64,7 +61,6 @@ int main()
   
   //Start background music
   fh.getMusic().play();
-
 
   Camera view{play1, 1024,800};
   
@@ -112,7 +108,7 @@ int main()
 	
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
-	play1.fire(direction);
+	play1.fire(lastDirection);
       }
 	
       //Player-update
@@ -156,7 +152,6 @@ int main()
         {
 			playerSprite.setTexture(fh.getPlayer(counter+3));
         }
-        cout << counter << endl;
         counter++;
         animationTimer.restart();
       }
@@ -172,7 +167,6 @@ int main()
 	{
 		playerSprite.setTexture(fh.getPlayer(0));
 	}
-    //cout << direction << endl;
     window.draw(playerSprite);
 	text.setPosition(play1.getX(), play1.getY()-30);
 	// Draw it
