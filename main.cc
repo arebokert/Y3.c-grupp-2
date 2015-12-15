@@ -23,6 +23,7 @@ int main()
   int direction{0};
   sf::Sprite playerSprite;
   sf::Clock timer{};
+  sf::Clock animationTimer{};
   sf::Time deltaTime{sf::milliseconds(2)};
     
   sf::RenderTexture off_screen;
@@ -76,12 +77,15 @@ int main()
       timer.restart();
       //Player-input
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-	direction = 0;
+	direction = 1;
 	play1.moveRight();
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-	direction = 1;
+      else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	direction = -1;
 	play1.moveLeft();
+      }
+      else {
+        direction = 0;
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 	
@@ -117,7 +121,45 @@ int main()
     renderSprite.setTexture(fh.getBlock(1));
     window.draw(renderSprite);
     playerSprite.setPosition(play1.getX(), play1.getY());
-    playerSprite.setTexture(fh.getPlayer(direction));
+    if(direction != 0){
+      int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
+      if(elapsedTime >= 500){
+        if(direction == 1){
+          playerSprite.setTexture(fh.getPlayer(1));
+        } 
+        else {
+          playerSprite.setTexture(fh.getPlayer(4));
+        }
+      }
+      else if(elapsedTime >= 1000){
+        if(direction == 1){
+          playerSprite.setTexture(fh.getPlayer(2));
+        } 
+        else {
+          playerSprite.setTexture(fh.getPlayer(5));
+        }
+      }
+      else if(elapsedTime >= 1500){
+        if(direction == 1){
+          playerSprite.setTexture(fh.getPlayer(1));
+        } 
+        else {
+          playerSprite.setTexture(fh.getPlayer(4));
+        }
+      }
+      else if(elapsedTime >= 2000){
+        if(direction == 1){
+          playerSprite.setTexture(fh.getPlayer(0));
+        } 
+        else {
+          playerSprite.setTexture(fh.getPlayer(3));
+        }
+      }
+    }
+    else {
+      playerSprite.setTexture(fh.getPlayer(0));
+      animationTimer.restart();
+    }
     //cout << direction << endl;
     window.draw(playerSprite);
 	text.setPosition(play1.getX(), play1.getY()-30);
