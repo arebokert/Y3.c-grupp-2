@@ -16,7 +16,7 @@ class Weapon : public Objects
  Weapon& operator=(const Weapon&) = delete; 
  void fire(int, int, int) const override;
  void update() const;
- void update(int, int);
+ void update(int, int, int);
  void setEquipped();
 
  protected:
@@ -28,7 +28,7 @@ class Weapon : public Objects
  int speed;
  int damage;
  bool equipped; 
- std::vector<Bullet> bullets_;
+ std::vector<Bullet> bullets;
 
  sf::Time cooldown;
  sf::Clock timer;
