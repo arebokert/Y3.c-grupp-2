@@ -25,6 +25,7 @@ public:
 	void switchWeapon(int);
 	bool getCanJump();
 private:
+	int counter{0};
 	sf::Clock animationTimer{};
 	int direction{0};
 	int lastDirection{0};

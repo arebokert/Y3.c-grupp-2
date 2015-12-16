@@ -16,7 +16,7 @@ public:
 private:
 	sf::Clock monsterAnimationTimer{};
 	void updateTexture();
-	int counterMonster;
+	int counterMonster{0};
 	sf::Clock clock;
 	void attack(Player&);
 	bool goRight{true};

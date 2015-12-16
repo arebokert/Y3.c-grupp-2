@@ -160,7 +160,7 @@ void FileHandler::loadSounds() {
   jumpSound.setPitch(0.8);
 }
 
-void FilehHandler::loadWeapons() {
+void FileHandler::loadWeapons() {
 	concurrent.lock();
 	weapons = new sf::Texture[6];
 	concurrent.unlock();
@@ -173,7 +173,7 @@ void FilehHandler::loadWeapons() {
 		s.append(".png");
 		cout << s << endl;
    
-		if(!monster[i].loadFromFile(s))
+		if(!weapons[i].loadFromFile(s))
 			cout << "Couldn't load WeaponTex: " << i << endl;
 		else
 			cout << "Loaded WeaponTex: " << i << endl;

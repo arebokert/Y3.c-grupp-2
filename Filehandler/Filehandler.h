@@ -18,10 +18,12 @@ public:
 	void loadBlocks();
 	void loadPlayer();
 	void loadMonster();
+	void loadWeapons();
 	void loadSounds();
 	sf::Texture& getBlock(int) const;
 	sf::Texture& getPlayer(int) const;
 	sf::Texture& getMonster(int) const;
+	sf::Texture& getWeapon(int) const;
 	Matrix getArea(int,int,int,int);
 	sf::Music& getMusic();
 	sf::Sound& getJumpSound();
