@@ -9,6 +9,7 @@ class Bullet : public Objects
 {
  public:
  Bullet(int x, int y, int texID, int w_speed, int w_damage) : Objects(x, y, texID), speed{w_speed}, damage{w_damage}{}
+ ~Bullet() = default;
  void fire(int, int, int) const override;
  void update() const override;
 

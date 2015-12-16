@@ -1,6 +1,7 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 #include "Objects.h"
+#include "Bullet.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
@@ -27,7 +28,7 @@ class Weapon : public Objects
  int speed;
  int damage;
  bool equipped; 
- //std::vector<Bullet> bullets_;
+ std::vector<Bullet> bullets_;
 
  sf::Time cooldown;
  sf::Clock timer;
