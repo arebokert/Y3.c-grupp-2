@@ -23,9 +23,9 @@ public:
 	void update(Matrix&, double);
 	bool pickUpWeapon(Weapon*);
 	void switchWeapon(int);
-	Weapon* getActiveWeapon(){return activeWeapon;};
 	bool getCanJump();
 private:
+	sf::Clock animationTimer{};
 	int direction{0};
 	int lastDirection{0};
 	void updateTexture();

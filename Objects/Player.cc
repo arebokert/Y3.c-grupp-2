@@ -9,13 +9,13 @@ using namespace std;
 void Player::moveLeft() {
   xSpeed = -speed;
   direction = -1;
-  LastDirection = -1;
+  lastDirection = -1;
 }
 
 void Player::moveRight() {
   xSpeed = speed;
   direction = 1;
-  LastDirection = 1;
+  lastDirection = 1;
 }
 
 void Player::jump() {
@@ -34,7 +34,6 @@ bool Player::getCanJump(){
 
 bool Player::pickUpWeapon(Weapon* new_wep){
   weapons.push_back(new_wep);
-  activeWeapon = new_wep;
   return true;
 }
 
@@ -110,7 +109,7 @@ void Player::update(Matrix& mat, double delta) {
   //Reset x-axis speed from player input
   xSpeed = 0;
   
-  activeWeapon->update(posX, posY);
+  activeWeapon->update(static_cast<int>(relPosX), static_cast<int>(relPosY));
   
   //calls function that updates the hp bar over the player
    updateHpString();
