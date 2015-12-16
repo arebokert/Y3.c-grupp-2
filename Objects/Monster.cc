@@ -71,14 +71,33 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
 		{
 			this->attack(play);
 		}
-
 	clock.restart();
   }
+	updateTexture();
 }
 //Function that enables the Monster to attack the player
   void Monster::attack(Player& play)
   {	
 	  cout << clock.getElapsedTime().asMilliseconds() << endl;
 	  play.setHp(play.getHp()-1);
+  }
+  void Monster::updateTexture()
+  {
+	  
+	  int elapsedTimeMonster{monsterAnimationTimer.getElapsedTime().asMilliseconds()};
+      if(elapsedTimeMonster >= 100)
+      {
+		if(counterMonster > 2)
+        {
+			counterMonster = 0;
+        }
+        if(goRight == false)
+        {
+			counterMonster = counterMonster + 3;
+        } 
+       setTexId(counterMonster); 
+       counterMonster++;
+       monsterAnimationTimer.restart();   
+      }
   }
   

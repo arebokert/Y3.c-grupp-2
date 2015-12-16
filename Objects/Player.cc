@@ -8,10 +8,14 @@ using namespace std;
 
 void Player::moveLeft() {
   xSpeed = -speed;
+  direction = -1;
+  lastDirection = -1;
 }
 
 void Player::moveRight() {
   xSpeed = speed;
+  direction = 1;
+  lastDirection = 1;
 }
 
 void Player::jump() {
@@ -30,7 +34,6 @@ bool Player::getCanJump(){
 
 bool Player::pickUpWeapon(Weapon* new_wep){
   weapons.push_back(new_wep);
-  activeWeapon = new_wep;
   return true;
 }
 
@@ -106,8 +109,63 @@ void Player::update(Matrix& mat, double delta) {
   //Reset x-axis speed from player input
   xSpeed = 0;
   
-  activeWeapon->update(posX, posY);
+ // activeWeapon->update(static_cast<int>(relPosX), static_cast<int>(relPosY));
   
   //calls function that updates the hp bar over the player
    updateHpString();
+updateTexture();
+}
+void Player::updateTexture()
+{
+	int counter{0};
+	if(direction != 0){
+      int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
+      if(elapsedTime >= 100 && canJump)
+      {
+		if(counter >= 3)
+        {
+			counter = 0;
+        }
+        if(direction == 1)
+        {
+			setTexId(counter);
+        } 
+        else
+        {
+			setTexId(counter+3);
+        }
+        counter++;
+        animationTimer.restart();
+      }
+      else if(!canJump){
+		if(lastDirection == 1){
+		  setTexId(6);
+		}
+		else {
+		  setTexId(7);
+		}
+		counter = 0;
+		animationTimer.restart();
+	  }
+    }
+    //these else-ifs checks the last direction of the players movement
+    //to properly set texture when player stop moving
+    else if (lastDirection == -1 && canJump)
+    {
+		setTexId(6);
+	}
+	else if (lastDirection == 1 && canJump)
+	{
+		setTexId(0);
+	}
+	else if (lastDirection == -1 && !canJump)
+	{
+		setTexId(7);
+	}
+	else if (lastDirection == 1 && !canJump)
+	{
+		setTexId(6);
+		
+	}
+	
 }
