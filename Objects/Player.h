@@ -13,6 +13,9 @@ public:
 		relPosY = static_cast<double>(y);
 	};
 	
+	int getLastDirection(){return lastDirection;};
+	int getDirection(){return direction;};
+	int setY(int y){posY = y;};
 	void moveLeft();
 	void moveRight();
 	void jump();
@@ -22,6 +25,9 @@ public:
 	void switchWeapon(int);
 	bool getCanJump();
 private:
+	int direction{0};
+	int lastDirection{0};
+	void updateTexture();
     bool canJump{true};
 	float ySpeed{0};
 	float xSpeed{0};

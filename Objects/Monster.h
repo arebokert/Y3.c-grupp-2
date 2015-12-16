@@ -14,6 +14,9 @@ public:
 	void update(Matrix&, double, Player&);
 	
 private:
+	sf::Clock monsterAnimationTimer{};
+	void updateTexture();
+	int counterMonster;
 	sf::Clock clock;
 	void attack(Player&);
 	bool goRight{true};
