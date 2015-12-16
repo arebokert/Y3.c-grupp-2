@@ -16,7 +16,9 @@ int main()
 {
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
+  Player play2{10, 320, 50, 10};
   play1.pickUpWeapon(new Weapon{10,10,0,10,10});
+  play2.pickUpWeapon(new Weapon{10,10,0,10,10});
   FileHandler fh{"Fieldtest1"};
 
   sf::Clock timer{};
@@ -83,36 +85,50 @@ int main()
     
     do {
       timer.restart();
-      //Player-input
+      //Player 1-input
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 	play1.moveRight();
       }
       else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 	play1.moveLeft();
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-	
-      }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-	fh.getJumpSound().play();
+	if(play1.getCanJump())
+	  fh.getJumpSound().play();
 	play1.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
-	play1.fire(play1.getLastDirection());
+	//play1.fire(play1.getLastDirection());
       }
-      cout << "TEST" << endl;
+
+      //Player 2-input
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	play2.moveRight();
+      }
+      else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	play2.moveLeft();
+      }
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	if(play2.getCanJump())
+	  fh.getJumpSound().play();
+	play2.jump();
+      }
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
+	//play1.fire(play1.getLastDirection());
+      }
+
+
       //Player-update
       play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
-      cout << "TEST 1" << endl;
+      play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
       //Monster-update
       mon1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
-      cout << "TEST 2" << endl;
       //Object-update
       
       //Camera-update
       view.update(play1);
       //Render
-      cout << "TEST" << endl;
+
         
       deltaTime = timer.getElapsedTime();
       deltaCounter = deltaCounter + deltaTime;
@@ -133,6 +149,11 @@ int main()
     playerSprite.setPosition(play1.getX(), play1.getY());
     playerSprite.setTexture(fh.getPlayer(play1.getTexId()));
     window.draw(playerSprite);
+    
+    sf::Sprite playerSprite2;
+    playerSprite2.setPosition(play2.getX(), play2.getY());
+    playerSprite2.setTexture(fh.getPlayer(play2.getTexId()));
+    window.draw(playerSprite2);
 
     //sf::Sprite weaponSprite{};
     //weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());

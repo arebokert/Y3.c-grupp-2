@@ -83,12 +83,12 @@ void FileHandler::loadBlocks() {
   concurrent.unlock();
 
   string s{"Data/Blocks/"};
-  for(int i = 1; i <= 15; i++) {
+  for(int i = 0; i <= 15; i++) {
 
     s.append(to_string(i));
     s.append(".png");
     
-    if(!blocks[i-1].loadFromFile(s))
+    if(!blocks[i].loadFromFile(s))
       cout << "Couldn't load block: " << i << endl;
     else
       cout << "Loaded block: " << i << endl;
