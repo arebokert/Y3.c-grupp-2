@@ -23,9 +23,6 @@ int main()
   sf::Time deltaTime{sf::milliseconds(2)};
   
 
-  //Set initial texture to playerSprite  SKALL TAS BORT
-  playerSprite.setTexture(fh.getPlayer(0));
-  weaponSprite.setTexture(fh.getWeapon(0));
   
   
   //Renders a hp bar over players
