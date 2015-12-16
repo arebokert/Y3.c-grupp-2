@@ -109,7 +109,7 @@ void Player::update(Matrix& mat, double delta) {
   //Reset x-axis speed from player input
   xSpeed = 0;
   
- // activeWeapon->update(static_cast<int>(relPosX), static_cast<int>(relPosY));
+  //activeWeapon->update(posX,posY);
   
   //calls function that updates the hp bar over the player
    updateHpString();
