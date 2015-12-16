@@ -20,6 +20,14 @@ void Player::jump() {
   }
 }
 
+/**
+ * Gets the availability of the jump action.
+ * @return Whether or not the player can jump.
+ */
+bool Player::getCanJump(){
+  return canJump;
+}
+
 bool Player::pickUpWeapon(Weapon* new_wep){
   weapons.push_back(new_wep);
   return true;

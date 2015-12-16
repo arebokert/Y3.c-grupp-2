@@ -97,14 +97,6 @@ int main()
       {
 	fh.getJumpSound().play();
 	play1.jump();
-	if(direction == 1)
-	{
-		playerSprite.setTexture(fh.getPlayer(6));
-	}
-	else if (direction == -1)
-	{
-		playerSprite.setTexture(fh.getPlayer(7));
-	}
 	
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
@@ -138,7 +130,7 @@ int main()
     //This if-statement changes the sprite when the player moves
     if(direction != 0){
       int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
-      if(elapsedTime >= 100)
+      if(elapsedTime >= 100 && play1.getCanJump())
       {
 		if(counter >= 3)
         {
@@ -155,17 +147,34 @@ int main()
         counter++;
         animationTimer.restart();
       }
+      else if(!play1.getCanJump()){
+		if(lastDirection == 1){
+		  playerSprite.setTexture(fh.getPlayer(6));
+		}
+		else {
+		  playerSprite.setTexture(fh.getPlayer(7));
+		}
+		counter = 0;
+		animationTimer.restart();
+	  }
     }
-    
     //these two else-ifs checks the last direction of the players movement
     //to properly set texture when player stop moving
-    else if (lastDirection == -1)
+    else if (lastDirection == -1 && play1.getCanJump())
     {
 		playerSprite.setTexture(fh.getPlayer(3));
 	}
-	else if (lastDirection == 1)
+	else if (lastDirection == 1 && play1.getCanJump())
 	{
 		playerSprite.setTexture(fh.getPlayer(0));
+	}
+	else if (lastDirection == -1 && !play1.getCanJump())
+	{
+		playerSprite.setTexture(fh.getPlayer(7));
+	}
+	else if (lastDirection == 1 && !play1.getCanJump())
+	{
+		playerSprite.setTexture(fh.getPlayer(6));
 	}
     window.draw(playerSprite);
 	text.setPosition(play1.getX(), play1.getY()-30);

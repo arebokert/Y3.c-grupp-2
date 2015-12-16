@@ -20,6 +20,7 @@ public:
 	void update(Matrix&, double);
 	bool pickUpWeapon(Weapon*);
 	void switchWeapon(int);
+	bool getCanJump();
 private:
     bool canJump{true};
 	float ySpeed{0};
