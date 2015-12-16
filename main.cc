@@ -69,11 +69,12 @@ int main()
   Monster mon1{10, 320, 10, 10}; 
 
   
-
+  sf::Clock fpsTimer;
   while (window.isOpen()) {
-
     sf::Time deltaCounter{sf::microseconds(0)};
     sf::Event event;
+
+    fpsTimer.restart();
 
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
@@ -116,7 +117,7 @@ int main()
       deltaTime = timer.getElapsedTime();
       deltaCounter = deltaCounter + deltaTime;
 
-    } while(deltaCounter < sf::milliseconds(15));
+    } while(deltaCounter < sf::milliseconds(14));
 
     
     window.clear();
@@ -140,7 +141,7 @@ int main()
     
     //HP bar
     text.setPosition(play1.getX(), play1.getY()-30);
-    text.setString(play1.getHpString());
+    text.setString(to_string(fpsTimer.getElapsedTime().asMilliseconds()));
     window.draw(text);
 
     //Display everything
