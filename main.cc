@@ -68,7 +68,7 @@ int main()
   
   Monster mon1{10, 320, 10, 10}; 
 
-
+  
 
   while (window.isOpen()) {
 
@@ -79,7 +79,7 @@ int main()
       if (event.type == sf::Event::Closed)
 	window.close();
     }
-      
+    
     do {
       timer.restart();
       //Player-input
@@ -99,17 +99,19 @@ int main()
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
 	play1.fire(play1.getLastDirection());
       }
-	
+      cout << "TEST" << endl;
       //Player-update
       play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
+      cout << "TEST 1" << endl;
       //Monster-update
       mon1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
+      cout << "TEST 2" << endl;
       //Object-update
       
       //Camera-update
       view.update(play1);
       //Render
-      
+      cout << "TEST" << endl;
         
       deltaTime = timer.getElapsedTime();
       deltaCounter = deltaCounter + deltaTime;
@@ -125,15 +127,15 @@ int main()
     renderSprite.setTexture(fh.getBlock(1));
     window.draw(renderSprite);
 
-    sf::Sprite playerSprite{};
+    sf::Sprite playerSprite;
     playerSprite.setPosition(play1.getX(), play1.getY());
     playerSprite.setTexture(fh.getPlayer(play1.getTexId()));
     window.draw(playerSprite);
 
-    sf::Sprite weaponSprite{};
-    weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());
-    weaponSprite.setTexture(fh.getMonster(mon1.getTexId()));
-    window.draw(weaponSprite);
+    //sf::Sprite weaponSprite{};
+    //weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());
+    //weaponSprite.setTexture(fh.getMonster(mon1.getTexId()));
+    //window.draw(weaponSprite);
     
     //HP bar
     text.setPosition(play1.getX(), play1.getY()-30);
