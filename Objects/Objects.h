@@ -7,17 +7,19 @@ class Objects{
   ~Objects() = default;
  Objects(int x, int y, int texID) : posX(x), posY(y), texID(texID){};
 
-  int getTexID();
   virtual void update() const = 0;
-  int getX();
-  int getY();
+  int getTexID() const {return texID;};
+  int getX() const {return posX;};
+  int getY() const {return posY;};
+  int setX(int x){posX = x;};
+  int setY(int y){posY = y;};
   virtual void fire(int, int, int) const = 0;  
 
  protected:
   Objects() = default;
-  int texID;
-  int posX;
-  int posY;
+  int texID{0};
+  int posX{0};
+  int posY{0};
  
  private:
 };
