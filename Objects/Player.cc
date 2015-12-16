@@ -112,17 +112,18 @@ void Player::update(Matrix& mat, double delta) {
   //activeWeapon->update(posX,posY);
   
   //calls function that updates the hp bar over the player
-   updateHpString();
-updateTexture();
+	updateHpString();
+	updateTexture();
 }
 void Player::updateTexture()
 {
-	int counter{0};
+	//int counter{0};
+	cout << direction << endl;
 	if(direction != 0){
       int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
       if(elapsedTime >= 100 && canJump)
       {
-		if(counter >= 3)
+		if(counter > 2)
         {
 			counter = 0;
         }
@@ -144,6 +145,7 @@ void Player::updateTexture()
 		else {
 		  setTexId(7);
 		}
+		cout << counter << endl;
 		counter = 0;
 		animationTimer.restart();
 	  }
@@ -152,7 +154,7 @@ void Player::updateTexture()
     //to properly set texture when player stop moving
     else if (lastDirection == -1 && canJump)
     {
-		setTexId(6);
+		setTexId(3);
 	}
 	else if (lastDirection == 1 && canJump)
 	{
@@ -167,5 +169,5 @@ void Player::updateTexture()
 		setTexId(6);
 		
 	}
-	
+	direction = 0;
 }

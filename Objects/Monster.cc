@@ -92,10 +92,13 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
 			counterMonster = 0;
         }
         if(goRight == false)
+        {	
+			setTexId(counterMonster+3);
+        }else
         {
-			counterMonster = counterMonster + 3;
-        } 
-       setTexId(counterMonster); 
+			setTexId(counterMonster);
+		} 
+       
        counterMonster++;
        monsterAnimationTimer.restart();   
       }
