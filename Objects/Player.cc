@@ -112,9 +112,9 @@ void Player::update(Matrix& mat, double delta) {
   //activeWeapon->update(posX,posY);
   
   //calls function that updates the hp bar over the player
-	updateHpString();
-	updateTexture();
-	activeWeapon->update(posX, posY, direction);
+  updateHpString();
+  updateTexture();
+  //activeWeapon->update(posX, posY, direction);
 }
 void Player::updateTexture()
 {
@@ -146,7 +146,6 @@ void Player::updateTexture()
 		else {
 		  setTexId(7);
 		}
-		cout << counter << endl;
 		counter = 0;
 		animationTimer.restart();
 	  }
