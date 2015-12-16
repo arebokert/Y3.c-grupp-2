@@ -18,26 +18,18 @@ int main()
   Player play1{10, 320, 10, 10};
   play1.pickUpWeapon(new Weapon{10,10,0,10,10});
   FileHandler fh{"Fieldtest1"};
-  int x{0};
-  int y{0};
-    
-  sf::Sprite renderSprite;
-  int direction{0};
-  //Variable lastDirection keeps track of the last movements of the player
-  //i.e movement before player stops.
-  int lastDirection{0};
-  sf::Sprite playerSprite;
-  sf::Sprite weaponSprite;
+
   sf::Clock timer{};
-  sf::Clock animationTimer{};
-  int counter{0};
   sf::Time deltaTime{sf::milliseconds(2)};
-  //Set initial texture to playerSprite
+  
+
+  //Set initial texture to playerSprite  SKALL TAS BORT
   playerSprite.setTexture(fh.getPlayer(0));
   weaponSprite.setTexture(fh.getWeapon(0));
-  sf::RenderTexture off_screen;
+  
   
   //Renders a hp bar over players
+  //-----------------------------------------
   std::string hp{play1.getHpString()};
   sf::Font font;
   font.loadFromFile("./font.ttf");
@@ -45,7 +37,13 @@ int main()
   text.setCharacterSize(20);
   text.setStyle(sf::Text::Bold);
   text.setColor(sf::Color::Red); 
-    
+  //-----------------------------------------
+
+
+  //Creating off_screen texture for map
+  //-----------------------------------------
+  sf::Sprite renderSprite;
+  sf::RenderTexture off_screen;
   if(!off_screen.create(256*32, 256*32))
     std::cerr << "Failed to load off_screen texture" << std::endl;
 
@@ -62,16 +60,24 @@ int main()
   off_screen.display();
     
   sf::Sprite off_sprite(off_screen.getTexture());
-  
+  //-----------------------------------------
+
+
+
   //Start background music
   fh.getMusic().play();
 
   Camera view{play1, 1024,800};
   
   Monster mon1{10, 320, 10, 10}; 
+
+
+
   while (window.isOpen()) {
+
     sf::Time deltaCounter{sf::microseconds(0)};
     sf::Event event;
+
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
 	window.close();
@@ -81,30 +87,20 @@ int main()
       timer.restart();
       //Player-input
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-	direction = 1;
-	lastDirection = 1;
 	play1.moveRight();
       }
       else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-	direction = -1;
-	lastDirection = -1;
 	play1.moveLeft();
       }
-      else {
-        direction = 0;
-      }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) 
-      {
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 	
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) 
-      {
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 	fh.getJumpSound().play();
 	play1.jump();
-	
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
-	play1.fire(lastDirection);
+	play1.fire(play1.getLastDirection());
       }
 	
       //Player-update
@@ -119,76 +115,35 @@ int main()
       
         
       deltaTime = timer.getElapsedTime();
-      //cout << deltaCounter.asMilliseconds() << endl;
       deltaCounter = deltaCounter + deltaTime;
+
     } while(deltaCounter < sf::milliseconds(15));
-    //cout << play1.getX() << endl<< mon1.getX() << endl;
+
+    
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);
+
     renderSprite.setPosition(mon1.getX(), mon1.getY());
     renderSprite.setTexture(fh.getBlock(1));
     window.draw(renderSprite);
+
+    sf::Sprite playerSprite{};
     playerSprite.setPosition(play1.getX(), play1.getY());
-    weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());
-    
-    //This if-statement changes the sprite when the player moves
-    if(direction != 0){
-      int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
-      if(elapsedTime >= 100 && play1.getCanJump())
-      {
-		if(counter >= 3)
-        {
-			counter = 0;
-        }
-        if(direction == 1)
-        {
-			playerSprite.setTexture(fh.getPlayer(counter));
-        } 
-        else
-        {
-			playerSprite.setTexture(fh.getPlayer(counter+3));
-        }
-        counter++;
-        animationTimer.restart();
-      }
-      else if(!play1.getCanJump()){
-		if(lastDirection == 1){
-		  playerSprite.setTexture(fh.getPlayer(6));
-		}
-		else {
-		  playerSprite.setTexture(fh.getPlayer(7));
-		}
-		counter = 0;
-		animationTimer.restart();
-	  }
-    }
-    //these two else-ifs checks the last direction of the players movement
-    //to properly set texture when player stop moving
-    else if (lastDirection == -1 && play1.getCanJump())
-    {
-		playerSprite.setTexture(fh.getPlayer(3));
-	}
-	else if (lastDirection == 1 && play1.getCanJump())
-	{
-		playerSprite.setTexture(fh.getPlayer(0));
-	}
-	else if (lastDirection == -1 && !play1.getCanJump())
-	{
-		playerSprite.setTexture(fh.getPlayer(7));
-	}
-	else if (lastDirection == 1 && !play1.getCanJump())
-	{
-		playerSprite.setTexture(fh.getPlayer(6));
-	}
+    playerSprite.setTexture(fh.getPlayer(play1.getTexId()));
     window.draw(playerSprite);
-	text.setPosition(play1.getX(), play1.getY()-30);
-	window.draw(weaponSprite);
-	// Draw it
-	window.draw(text);
-	//updates hp bar
-    hp=play1.getHpString();
-    text.setString(hp);
+
+    sf::Sprite weaponSprite{};
+    weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());
+    weaponSprite.setTexture(fh.getMonster(mon1.getTexId()));
+    window.draw(weaponSprite);
+    
+    //HP bar
+    text.setPosition(play1.getX(), play1.getY()-30);
+    text.setString(play1.getHpString());
+    window.draw(text);
+
+    //Display everything
     window.display(); 
   }
   return 0;
