@@ -18,8 +18,10 @@ public:
 	void loadBlocks();
 	void loadPlayer();
 	void loadSounds();
+	void loadWeapons();
 	sf::Texture& getBlock(int) const;
 	sf::Texture& getPlayer(int) const;
+	sf::Texture& getWeapon(int) const;
 	Matrix getArea(int,int,int,int);
 	sf::Music& getMusic();
 	sf::Sound& getJumpSound();
@@ -27,6 +29,7 @@ private:
 	//std::vector<Block> blocks;
 	sf::Texture* blocks{nullptr};
 	sf::Texture* player{nullptr};
+	sf::Texture* weapons{nullptr};
 	
 	Matrix map;
 	std::string projectName;

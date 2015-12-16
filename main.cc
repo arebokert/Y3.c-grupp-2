@@ -6,6 +6,7 @@
 #include "Tools/Matrix.h"
 #include "Filehandler/Filehandler.h"
 #include "Objects/Player.h"
+#include "Objects/Weapon.h"
 #include "Objects/Monster.h"
 #include "Graphics/Camera.h"
 
@@ -15,6 +16,7 @@ int main()
 {
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
+  play1.pickUpWeapon(new Weapon{10,10,0,10,10});
   FileHandler fh{"Fieldtest1"};
   int x{0};
   int y{0};
@@ -25,12 +27,14 @@ int main()
   //i.e movement before player stops.
   int lastDirection{0};
   sf::Sprite playerSprite;
+  sf::Sprite weaponSprite;
   sf::Clock timer{};
   sf::Clock animationTimer{};
   int counter{0};
   sf::Time deltaTime{sf::milliseconds(2)};
   //Set initial texture to playerSprite
   playerSprite.setTexture(fh.getPlayer(0));
+  weaponSprite.setTexture(fh.getWeapon(0));
   sf::RenderTexture off_screen;
   
   //Renders a hp bar over players
@@ -126,6 +130,7 @@ int main()
     renderSprite.setTexture(fh.getBlock(1));
     window.draw(renderSprite);
     playerSprite.setPosition(play1.getX(), play1.getY());
+    weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());
     
     //This if-statement changes the sprite when the player moves
     if(direction != 0){
@@ -178,6 +183,7 @@ int main()
 	}
     window.draw(playerSprite);
 	text.setPosition(play1.getX(), play1.getY()-30);
+	window.draw(weaponSprite);
 	// Draw it
 	window.draw(text);
 	//updates hp bar
