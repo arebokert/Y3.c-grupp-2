@@ -30,6 +30,7 @@ private:
 	sf::Texture* blocks{nullptr};
 	sf::Texture* player{nullptr};
 	sf::Texture* monster{nullptr};
+	sf::Texture* weapons{nullptr};
 	
 	Matrix map;
 	std::string projectName;

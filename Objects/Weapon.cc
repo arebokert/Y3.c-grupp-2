@@ -27,11 +27,14 @@ void Weapon::update() const
 
 void Weapon::update(int rel_x, int rel_y, int direction)
 {
-  setX(rel_x);
-  setY(rel_y+31);
-
-  //for(vector<Weapon>::iterator it = bullets_.begin(); it != bullets_.end(); it++)
-  //{
-  //*it->update();
-  //}
+	if(direction == 1)
+	{
+		setX(rel_x - 30);
+	}
+	else
+	{
+		setX(rel_x + 30);
+	}
+	setY(rel_y+31);
+	
 }

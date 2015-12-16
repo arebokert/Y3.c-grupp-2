@@ -160,6 +160,27 @@ void FileHandler::loadSounds() {
   jumpSound.setPitch(0.8);
 }
 
+void FilehHandler::loadWeapons() {
+	concurrent.lock();
+	weapons = new sf::Texture[6];
+	concurrent.unlock();
+
+	string s{"Data/Weapons/"};
+
+	for(int i{0}; i <= 5; i++) {
+
+		s.append(to_string(i));
+		s.append(".png");
+		cout << s << endl;
+   
+		if(!monster[i].loadFromFile(s))
+			cout << "Couldn't load WeaponTex: " << i << endl;
+		else
+			cout << "Loaded WeaponTex: " << i << endl;
+    
+		s = "Data/Weapons/";
+   }
+}
 
 sf::Texture& FileHandler::getBlock(int i) const {
   return blocks[i];
@@ -172,6 +193,9 @@ sf::Texture& FileHandler::getMonster(int i) const {
   return monster[i];
 }
 
+sf::Texture& FileHandler::getWeapon(int i) const {
+  return weapons[i];
+}
 
 Matrix FileHandler::getArea(int x1, int y1, int x2, int y2)  {
   return map.getArea(x1,y1,x2,y2);
