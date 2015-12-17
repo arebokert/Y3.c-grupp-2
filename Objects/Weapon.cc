@@ -43,7 +43,7 @@ void Weapon::update(int rel_x, int rel_y, int direction)
 	}
 	else
 	{
-		setX(rel_x - 30);
+		setX(rel_x - 16);
 	}
 	setY(rel_y+31);
 	
