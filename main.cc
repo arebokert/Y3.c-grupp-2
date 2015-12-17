@@ -33,6 +33,24 @@ int main()
 	multiplayer = false;
   }
 	
+  cout << "Enter the name of player 1 below: " << endl;
+  getline(cin, play1Name);
+  
+  while (play1Name.empty()){
+		cout << "Enter a name, damn it:" << endl;
+		getline(cin, play1Name);
+  }  
+  
+  if(multiplayer) {
+	cout << "Enter the name of player 2 below: " << endl;
+	getline(cin, play2Name);
+	
+	while (play2Name.empty() || play2Name.compare(play1Name) == 0){
+		cout << "Name is either empty or already taken! Try again, knucklehead: " << endl;
+		getline(cin, play2Name);
+	}  
+  }
+	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
   play1.pickUpWeapon(new Weapon{10,10,0,10,10});
@@ -55,7 +73,6 @@ int main()
   text.setStyle(sf::Text::Bold);
   text.setColor(sf::Color::Red); 
   //-----------------------------------------
-
 
   //Creating off_screen texture for map
   //-----------------------------------------
@@ -200,11 +217,30 @@ int main()
     //weaponSprite.setTexture(fh.getMonster(mon1.getTexId()));
     //window.draw(weaponSprite);
     
+    //Draws the playernames on the screen
+	sf::Text playerNameOne(play1Name, font);
+	playerNameOne.setCharacterSize(20);
+	playerNameOne.setStyle(sf::Text::Bold);
+	playerNameOne.setColor(sf::Color::Red); 
+	
+	playerNameOne.setPosition(play1.getX(), play1.getY()-60);
+    window.draw(playerNameOne);
+	
+	if(multiplayer) {
+		sf::Text playerNameTwo(play2Name, font);
+		playerNameTwo.setCharacterSize(20);
+		playerNameTwo.setStyle(sf::Text::Bold);
+		playerNameTwo.setColor(sf::Color::Green); 
+		
+		playerNameTwo.setPosition(play2.getX(), play2.getY()-60);
+		window.draw(playerNameTwo);
+	}
+	
     //HP bar
     text.setPosition(play1.getX(), play1.getY()-30);
     text.setString(to_string(fpsTimer.getElapsedTime().asMilliseconds()));
     window.draw(text);
-
+	
     //Display everything
     window.display(); 
   }
