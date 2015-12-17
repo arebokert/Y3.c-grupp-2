@@ -22,6 +22,7 @@ public:
 	void fire(int);
 	void update(Matrix&, double);
 	bool pickUpWeapon(Weapon*);
+	Weapon* getActiveWeapon();
 	void switchWeapon(int);
 	bool getCanJump();
 private:

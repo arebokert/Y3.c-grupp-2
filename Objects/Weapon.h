@@ -11,7 +11,7 @@
 class Weapon : public Objects
 {
  public:
- Weapon(int x, int y, int texID, int w_speed, int w_damage) : Objects(x, y, texID), speed{w_speed}, damage{w_damage}{}
+ Weapon(int x, int y, int texID, int w_speed, int w_damage, int cooldown) : Objects(x, y, texID), speed{w_speed}, damage{w_damage}{}
  Weapon(const Weapon&);
  ~Weapon() = default;
  Weapon& operator=(const Weapon&) = delete; 
