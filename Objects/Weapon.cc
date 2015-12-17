@@ -16,6 +16,21 @@ void Weapon::fire(int rel_x, int rel_y, int direction) const
   b.fire(rel_x, rel_y, direction);
 }
 
+void Weapon::setEquipped()
+{
+  equipped = true;
+}
+
+int Weapon::getTexDirected(int direction){
+	if(direction == -1){
+		return getTexID();
+	} else if(direction == 1){
+		return getTexID()+1;
+	} else {
+		return getTexID()+1;
+	}
+}
+
 void Weapon::update() const
 {
 }
@@ -29,7 +44,8 @@ void Weapon::update(int rel_x, int rel_y, int direction)
 	else
 	{
 		setX(rel_x + 25);
+
 	}
-	setY(rel_y-31);
-	
+
+	setY(rel_y + 20);
 }

@@ -22,9 +22,9 @@ public:
 	void fire(int);
 	void update(Matrix&, double);
 	bool pickUpWeapon(Weapon*);
-	Weapon* getActiveWeapon();
 	void switchWeapon(int);
 	bool getCanJump();
+	Weapon& getActiveWeapon();
 private:
 	int counter{0};
 	sf::Clock animationTimer{};

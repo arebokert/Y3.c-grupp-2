@@ -45,8 +45,8 @@ void Player::switchWeapon(int pressed){
   activeWeapon = weapons.at(pressed);
 }
 
-Weapon* Player::getActiveWeapon() {
-	return activeWeapon;
+Weapon& Player::getActiveWeapon(){
+	return *activeWeapon;
 }
 
 void Player::fire(int direction){
@@ -114,7 +114,7 @@ void Player::update(Matrix& mat, double delta) {
   //Reset x-axis speed from player input
   xSpeed = 0;
   
-  //activeWeapon->update(posX,posY);
+  activeWeapon->update(static_cast<int>(posX),static_cast<int>(posY),lastDirection);
   
   //calls function that updates the hp bar over the player
   updateHpString();

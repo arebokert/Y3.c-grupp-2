@@ -18,6 +18,8 @@ class Weapon : public Objects
  void fire(int, int, int) const override;
  void update() const;
  void update(int, int, int);
+ void setEquipped();
+ int getTexDirected(int direction);
 
  private:
  Weapon() = default;

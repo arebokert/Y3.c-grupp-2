@@ -50,9 +50,9 @@ int main()
 	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
-  play1.pickUpWeapon(new Weapon{10,10,0,10,10});
+  play1.pickUpWeapon(new Weapon{10,10,0,10,10,1});
   Player play2{10, 320, 10, 10};
-  play2.pickUpWeapon(new Weapon{10,10,0,10,10});
+  play2.pickUpWeapon(new Weapon{10,10,0,10,10,1});
   
   FileHandler fh{"Fieldtest1"};
 
@@ -209,10 +209,10 @@ int main()
 		window.draw(playerSprite2);
 	}
 
-    //sf::Sprite weaponSprite{};
-    //weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());
-    //weaponSprite.setTexture(fh.getMonster(mon1.getTexId()));
-    //window.draw(weaponSprite);
+    sf::Sprite weaponSprite{};
+    weaponSprite.setPosition(play1.getActiveWeapon().getX(), play1.getActiveWeapon().getY());
+    weaponSprite.setTexture(fh.getWeapon(play1.getActiveWeapon().getTexDirected(play1.getLastDirection())));
+    window.draw(weaponSprite);
     
     //Draws the playernames on the screen
 	sf::Text playerNameOne(play1Name, font);
