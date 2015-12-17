@@ -62,13 +62,18 @@ int main()
   
   //Renders a hp bar over players
   //-----------------------------------------
-  std::string hp{play1.getHpString()};
+  std::string hpP1{play1.getHpString()};
+  std::string hpP2{play2.getHpString()};
   sf::Font font;
   font.loadFromFile("./font.ttf");
-  sf::Text text(hp, font);
-  text.setCharacterSize(20);
-  text.setStyle(sf::Text::Bold);
-  text.setColor(sf::Color::Red); 
+  sf::Text hpTextP1(hpP1, font);
+  sf::Text hpTextP2(hpP2, font);
+  hpTextP1.setCharacterSize(20);
+  hpTextP1.setStyle(sf::Text::Bold);
+  hpTextP1.setColor(sf::Color::Red); 
+  hpTextP2.setCharacterSize(20);
+  hpTextP2.setStyle(sf::Text::Bold);
+  hpTextP2.setColor(sf::Color::Green); 
   //-----------------------------------------
 
   //Creating off_screen texture for map
@@ -225,9 +230,12 @@ int main()
 	playerNameOne.setCharacterSize(20);
 	playerNameOne.setStyle(sf::Text::Bold);
 	playerNameOne.setColor(sf::Color::Red); 
-	
 	playerNameOne.setPosition(play1.getX(), play1.getY()-60);
+	hpTextP1.setPosition(play1.getX(), play1.getY()-30);
+	hpTextP1.setString(play1.getHpString());
     window.draw(playerNameOne);
+    window.draw(hpTextP1);
+    
 	
 	if(multiplayer) {
 		sf::Text playerNameTwo(play2Name, font);
@@ -235,13 +243,11 @@ int main()
 		playerNameTwo.setStyle(sf::Text::Bold);
 		playerNameTwo.setColor(sf::Color::Green); 
 		playerNameTwo.setPosition(play2.getX(), play2.getY()-60);
+		hpTextP2.setPosition(play2.getX(), play2.getY()-30);
+		hpTextP2.setString(play2.getHpString());
 		window.draw(playerNameTwo);
+		window.draw(hpTextP2);
 	}
-	
-    //HP bar
-    text.setPosition(play1.getX(), play1.getY()-30);
-    text.setString(to_string(fpsTimer.getElapsedTime().asMilliseconds()));
-    window.draw(text);
 	
     //Display everything
     window.display(); 
