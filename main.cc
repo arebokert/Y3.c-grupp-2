@@ -201,18 +201,24 @@ int main()
     playerSprite.setTexture(fh.getPlayer(play1.getTexId()));
     window.draw(playerSprite);
     
+    sf::Sprite weaponSpriteP1{};
+    weaponSpriteP1.setPosition(play1.getActiveWeapon().getX(), play1.getActiveWeapon().getY());
+    weaponSpriteP1.setTexture(fh.getWeapon(play1.getActiveWeapon().getTexDirected(play1.getLastDirection())));
+    window.draw(weaponSpriteP1);
+    
     sf::Sprite playerSprite2;
     playerSprite2.setPosition(play2.getX(), play2.getY());
     playerSprite2.setTexture(fh.getPlayer(play2.getTexId()));
     
+    sf::Sprite weaponSpriteP2{};
+    weaponSpriteP2.setPosition(play2.getActiveWeapon().getX(), play2.getActiveWeapon().getY());
+    weaponSpriteP2.setTexture(fh.getWeapon(play2.getActiveWeapon().getTexDirected(play2.getLastDirection())));
+    
     if(multiplayer) {
 		window.draw(playerSprite2);
+		window.draw(weaponSpriteP2);
 	}
 
-    sf::Sprite weaponSprite{};
-    weaponSprite.setPosition(play1.getActiveWeapon().getX(), play1.getActiveWeapon().getY());
-    weaponSprite.setTexture(fh.getWeapon(play1.getActiveWeapon().getTexDirected(play1.getLastDirection())));
-    window.draw(weaponSprite);
     
     //Draws the playernames on the screen
 	sf::Text playerNameOne(play1Name, font);
@@ -228,7 +234,6 @@ int main()
 		playerNameTwo.setCharacterSize(20);
 		playerNameTwo.setStyle(sf::Text::Bold);
 		playerNameTwo.setColor(sf::Color::Green); 
-		
 		playerNameTwo.setPosition(play2.getX(), play2.getY()-60);
 		window.draw(playerNameTwo);
 	}
