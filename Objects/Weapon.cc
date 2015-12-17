@@ -33,13 +33,18 @@ int Weapon::getTexDirected(int direction){
 
 void Weapon::update() const
 {
+	if (!bullets.empty()) {
+		for(auto it = bullets.begin(); it != bullets.end(); it++) {
+			it->update();
+		}
+	}
 }
 
 void Weapon::update(int rel_x, int rel_y, int direction)
 {
 	if(direction == 1)
 	{
-		setX(rel_x - 25);
+		setX(rel_x + 25);
 	}
 	else
 	{
