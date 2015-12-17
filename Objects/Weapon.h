@@ -12,15 +12,12 @@ class Weapon : public Objects
 {
  public:
  Weapon(int x, int y, int texID, int w_speed, int w_damage) : Objects(x, y, texID), speed{w_speed}, damage{w_damage}{}
-  ~Weapon() = default;
+ Weapon(const Weapon&);
+ ~Weapon() = default;
  Weapon& operator=(const Weapon&) = delete; 
  void fire(int, int, int) const override;
  void update() const;
  void update(int, int, int);
- void setEquipped();
-
- protected:
- Weapon(const Weapon&); 
 
  private:
  Weapon() = default;

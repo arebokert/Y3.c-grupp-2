@@ -12,7 +12,7 @@ using namespace std;
 void Weapon::fire(int rel_x, int rel_y, int direction) const
 { 
   Bullet b{rel_x, rel_y, texID, speed, damage};
-  //bullets.push_back(b);
+  bullets.push_back(b);
   b.fire(rel_x, rel_y, direction);
 }
 
