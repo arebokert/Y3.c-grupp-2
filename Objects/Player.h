@@ -19,8 +19,8 @@ public:
 	void moveLeft();
 	void moveRight();
 	void jump();
-	void fire(int);
-	void update(Matrix&, double);
+	void fire(const int, const int);
+	void update(Matrix&, double, const int);
 	bool pickUpWeapon(Weapon*);
 	void switchWeapon(int);
 	bool getCanJump();
@@ -38,6 +38,8 @@ private:
 	int height{62};
 	std::vector<Weapon*> weapons;
 	Weapon* activeWeapon;
+	
+
 };
 
 

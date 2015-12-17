@@ -1,6 +1,7 @@
 #include "Weapon.h"
 #include "Objects.h"
 #include "Bullet.h"
+#include <iostream>
 #include <vector>
 #include <iterator>
 #include <SFML/Graphics.hpp>
@@ -9,11 +10,17 @@
 
 using namespace std;
 
-void Weapon::fire(int rel_x, int rel_y, int direction) const
+void Weapon::fire(int rel_x, int rel_y, int direction, const int frame)
 { 
+  if(frame < lockout ){
+	return;
+  }
+  
+  lockout = frame + cd;
   Bullet b{rel_x, rel_y, direction, speed, damage};
-  //bullets.push_back(b);
-  b.fire(rel_x, rel_y, direction);
+  bullets.push_back(b);
+  b.drawBullet(rel_x, rel_y, direction, frame);
+  cout << "Bam!" << endl;
 }
 
 void Weapon::setEquipped()
@@ -40,8 +47,22 @@ void Weapon::update() const
 	}
 }
 
-void Weapon::update(int rel_x, int rel_y, int direction)
+void Weapon::update(int rel_x, int rel_y, int direction, const int frame)
 {
+	//Protection against frame overflowing, thus causing weapons to lock.
+	if (frame == 0)
+		{
+			if ((std::numeric_limits<int>::max() - lockout) < cd)
+			{
+				int deltaFrame = std::numeric_limits<int>::max() - lockout;
+				lockout = cd - deltaFrame;
+			}
+			else
+			{
+				lockout = 0;
+			}
+		}
+	
 	if(direction == 1)
 	{
 		setX(rel_x + 25);
@@ -51,5 +72,9 @@ void Weapon::update(int rel_x, int rel_y, int direction)
 		setX(rel_x - 16);
 	}
 
-	setY(rel_y + 30);
+	setY(rel_y + 25);
+	
+	if(frame < cd) {
+		lockout = true;
+	}
 }

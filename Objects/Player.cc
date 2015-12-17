@@ -49,9 +49,9 @@ Weapon& Player::getActiveWeapon(){
 	return *activeWeapon;
 }
 
-void Player::fire(int direction){
+void Player::fire(const int direction, const int frame){
   if(activeWeapon != nullptr){
-    activeWeapon->fire(static_cast<int>(relPosX), static_cast<int>(relPosY), direction);
+    activeWeapon->fire(static_cast<int>(relPosX), static_cast<int>(relPosY), direction, frame);
   }
 }
 
@@ -65,7 +65,7 @@ void Character::updateHpString(){
 	setHpString(tempHp);
 }
 
-void Player::update(Matrix& mat, double delta) {
+void Player::update(Matrix& mat, double delta, const int frame) {
   //Speed will have to be dependent on delta time
   //Fix later when time-step has been added
   
@@ -114,7 +114,7 @@ void Player::update(Matrix& mat, double delta) {
   //Reset x-axis speed from player input
   xSpeed = 0;
   
-  activeWeapon->update(static_cast<int>(posX),static_cast<int>(posY),lastDirection);
+  activeWeapon->update(static_cast<int>(posX),static_cast<int>(posY),lastDirection, frame);
   
   //calls function that updates the hp bar over the player
   updateHpString();
@@ -124,7 +124,7 @@ void Player::update(Matrix& mat, double delta) {
 void Player::updateTexture()
 {
 	//int counter{0};
-	cout << direction << endl;
+	//cout << direction << endl;
 	if(direction != 0){
       int elapsedTime{animationTimer.getElapsedTime().asMilliseconds()};
       if(elapsedTime >= 100 && canJump)

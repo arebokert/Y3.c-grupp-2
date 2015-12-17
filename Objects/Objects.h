@@ -13,7 +13,7 @@ class Objects{
   int getY() const {return posY;};
   int setX(int x){posX = x;};
   int setY(int y){posY = y;};
-  virtual void fire(int, int, int) const = 0;  
+  //virtual void fire(int, int, int, const int) = 0;  
 
  protected:
   Objects() = default;

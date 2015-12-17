@@ -50,9 +50,9 @@ int main()
 	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
-  play1.pickUpWeapon(new Weapon{10,10,0,10,10,1});
+  play1.pickUpWeapon(new Weapon{10,10,0,10,10,1300});
   Player play2{10, 320, 10, 10};
-  play2.pickUpWeapon(new Weapon{10,10,0,10,10,1});
+  play2.pickUpWeapon(new Weapon{10,10,0,10,10,1300});
   
   FileHandler fh{"Fieldtest1"};
 
@@ -101,6 +101,8 @@ int main()
   Camera view{play1, 1024,800};
   
   Monster mon1{10, 320, 10, 10}; 
+  
+  static int frame = 0;
 
   
   sf::Clock fpsTimer;
@@ -116,7 +118,8 @@ int main()
     }
     
     do {
-      timer.restart();
+		++frame;
+	  timer.restart();
       //Player 1-input
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 	play1.moveRight();
@@ -130,7 +133,7 @@ int main()
 		play1.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
-	//play1.fire(play1.getLastDirection());
+		play1.fire(play1.getLastDirection(), frame);
       }
 	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) {
 		play1.switchWeapon(0);  
@@ -154,7 +157,7 @@ int main()
 		play2.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && multiplayer) {
-	//play2.fire(play1.getLastDirection());
+		play2.fire(play1.getLastDirection(), frame);
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && multiplayer) {
 		play2.switchWeapon(0);  
@@ -167,10 +170,10 @@ int main()
 	  }
 
       //Player-update
-      play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
+      play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, frame);
       
       if(multiplayer) {
-		play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
+		play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, frame);
 	  }
       //Monster-update
       mon1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
