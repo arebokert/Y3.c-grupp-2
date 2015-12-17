@@ -119,7 +119,7 @@ void Player::update(Matrix& mat, double delta) {
   //calls function that updates the hp bar over the player
   updateHpString();
   updateTexture();
-  activeWeapon->update(posX, posY, direction);
+  //activeWeapon->update(posX, posY, direction);
 }
 void Player::updateTexture()
 {
