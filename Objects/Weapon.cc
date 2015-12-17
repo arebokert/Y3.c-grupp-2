@@ -39,12 +39,12 @@ void Weapon::update(int rel_x, int rel_y, int direction)
 {
 	if(direction == 1)
 	{
-		setX(rel_x - 25);
+		setX(rel_x + 30);
 	}
 	else
 	{
 		setX(rel_x - 16);
 	}
 
-	setY(rel_y + 20);
+	setY(rel_y + 30);
 }
