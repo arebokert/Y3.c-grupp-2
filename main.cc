@@ -18,20 +18,17 @@ int main()
   string input = "";
   string play1Name = "";
   string play2Name = "";
-
-  cout << "Multiplayer mode? y/n" << endl;
-  getline(cin, input);
   
-  if(input == "y" || input == "Y") {
-	multiplayer = true;
-  } 
-  else if (input == "n" || input == "N") {
-	multiplayer =  false;
-  }
-  else {
-	cout << "Erroneous input. Guess youre playing alone then, you clumsy, clumsy person!" << endl;
-	multiplayer = false;
-  }
+  do{
+    cout << "Multiplayer mode? y/n" << endl;
+    getline(cin, input);
+    if(input == "y" || input == "Y") {
+	  multiplayer = true;
+    } 
+    else if (input == "n" || input == "N") {
+	  multiplayer =  false;
+    }
+  } while(input != "Y" && input != "y" && input != "n" && input != "N");
 	
   cout << "Enter the name of player 1 below: " << endl;
   getline(cin, play1Name);
