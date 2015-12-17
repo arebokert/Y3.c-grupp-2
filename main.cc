@@ -14,17 +14,35 @@ using namespace std;
 
 int main()
 {
+  bool multiplayer;
+  string input = "";
+  string play1Name = "";
+  string play2Name = "";
+
+  cout << "Multiplayer mode? y/n" << endl;
+  getline(cin, input);
+  
+  if(input == "y" || input == "Y") {
+	multiplayer = true;
+  } 
+  else if (input == "n" || input == "N") {
+	multiplayer =  false;
+  }
+  else {
+	cout << "Erroneous input. Guess youre playing alone then, you clumsy, clumsy person!" << endl;
+	multiplayer = false;
+  }
+	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
-  Player play2{10, 320, 50, 10};
   play1.pickUpWeapon(new Weapon{10,10,0,10,10});
+  Player play2{10, 320, 10, 10};
   play2.pickUpWeapon(new Weapon{10,10,0,10,10});
+  
   FileHandler fh{"Fieldtest1"};
 
   sf::Clock timer{};
   sf::Time deltaTime{sf::milliseconds(2)};
-  
-
   
   
   //Renders a hp bar over players
@@ -93,34 +111,53 @@ int main()
 	play1.moveLeft();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-	if(play1.getCanJump())
-	  fh.getJumpSound().play();
-	play1.jump();
+		if(play1.getCanJump())
+		  fh.getJumpSound().play();
+		play1.jump();
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
 	//play1.fire(play1.getLastDirection());
       }
-
+	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) {
+		play1.switchWeapon(0);  
+	  }
+	  else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) {
+		play1.switchWeapon(1);  
+	  }
+	  else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) {
+		play1.switchWeapon(2);  
+	  }
       //Player 2-input
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-	play2.moveRight();
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && multiplayer) {
+		play2.moveRight();
       }
-      else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-	play2.moveLeft();
+      else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && multiplayer) {
+		play2.moveLeft();
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-	if(play2.getCanJump())
-	  fh.getJumpSound().play();
-	play2.jump();
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && multiplayer) {
+		if(play2.getCanJump())
+		  fh.getJumpSound().play();
+		play2.jump();
       }
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
-	//play1.fire(play1.getLastDirection());
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && multiplayer) {
+	//play2.fire(play1.getLastDirection());
       }
-
+      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && multiplayer) {
+		play2.switchWeapon(0);  
+	  }
+	  else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && multiplayer) {
+		play2.switchWeapon(1);  
+	  }
+	    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && multiplayer) {
+		play2.switchWeapon(2);  
+	  }
 
       //Player-update
       play1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
-      play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
+      
+      if(multiplayer) {
+		play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000);
+	  }
       //Monster-update
       mon1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
       //Object-update
@@ -153,7 +190,10 @@ int main()
     sf::Sprite playerSprite2;
     playerSprite2.setPosition(play2.getX(), play2.getY());
     playerSprite2.setTexture(fh.getPlayer(play2.getTexId()));
-    window.draw(playerSprite2);
+    
+    if(multiplayer) {
+		window.draw(playerSprite2);
+	}
 
     //sf::Sprite weaponSprite{};
     //weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());

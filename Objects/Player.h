@@ -12,7 +12,7 @@ public:
 		relPosX = static_cast<double>(x);
 		relPosY = static_cast<double>(y);
 	};
-	
+
 	int getLastDirection(){return lastDirection;};
 	int getDirection(){return direction;};
 	int setY(int y){posY = y;};
