@@ -21,6 +21,16 @@ void Weapon::setEquipped()
   equipped = true;
 }
 
+int Weapon::getTexDirected(int direction){
+	if(direction == -1){
+		return getTexID();
+	} else if(direction == 1){
+		return getTexID()+1;
+	} else {
+		return getTexID()+1;
+	}
+}
+
 void Weapon::update() const
 {
 }
@@ -29,11 +39,11 @@ void Weapon::update(int rel_x, int rel_y, int direction)
 {
 	if(direction == 1)
 	{
-		setX(rel_x - 30);
+		setX(rel_x + 30);
 	}
 	else
 	{
-		setX(rel_x + 30);
+		setX(rel_x - 30);
 	}
 	setY(rel_y+31);
 	

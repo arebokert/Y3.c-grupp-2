@@ -27,6 +27,7 @@ FileHandler::FileHandler(const string& project) {
   thread t3(&FileHandler::loadPlayer, this);
   thread t4(&FileHandler::loadSounds, this);
   thread t5(&FileHandler::loadMonster, this);
+  thread t6(&FileHandler::loadWeapons, this);
 
   //Vänta på threads med thread.join()
   t1.join();
@@ -34,7 +35,7 @@ FileHandler::FileHandler(const string& project) {
   t3.join();
   t4.join();
   t5.join();
-
+  t6.join();
   //Loading player seperately due to hardware concurrency
   //loadPlayer();
 }

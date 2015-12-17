@@ -18,6 +18,7 @@ class Weapon : public Objects
  void update() const;
  void update(int, int, int);
  void setEquipped();
+ int getTexDirected(int direction);
 
  protected:
  Weapon(const Weapon&); 

@@ -24,6 +24,7 @@ public:
 	bool pickUpWeapon(Weapon*);
 	void switchWeapon(int);
 	bool getCanJump();
+	Weapon& getActiveWeapon();
 private:
 	int counter{0};
 	sf::Clock animationTimer{};

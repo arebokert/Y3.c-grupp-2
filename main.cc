@@ -209,10 +209,10 @@ int main()
 		window.draw(playerSprite2);
 	}
 
-    //sf::Sprite weaponSprite{};
-    //weaponSprite.setPosition(play1.getActiveWeapon()->getX(), play1.getActiveWeapon()->getY());
-    //weaponSprite.setTexture(fh.getMonster(mon1.getTexId()));
-    //window.draw(weaponSprite);
+    sf::Sprite weaponSprite{};
+    weaponSprite.setPosition(play1.getActiveWeapon().getX(), play1.getActiveWeapon().getY());
+    weaponSprite.setTexture(fh.getWeapon(play1.getActiveWeapon().getTexDirected(play1.getLastDirection())));
+    window.draw(weaponSprite);
     
     //Draws the playernames on the screen
 	sf::Text playerNameOne(play1Name, font);
