@@ -50,6 +50,8 @@ int main()
   play1.pickUpWeapon(new Weapon{10,10,0,200,10,1000});
   Player play2{10, 320, 10, 10};
   play2.pickUpWeapon(new Weapon{10,10,0,200,10,1000});
+  Monster* mon1 = new Monster{10, 320, 10, 10}; 
+  monsters.push_back(mon1);
   
   FileHandler fh{"Fieldtest1"};
 
@@ -90,9 +92,11 @@ int main()
       } else if(fh.getMap().at(i,j) == -1){
 		  play1.setRelPosX(i*32);
 		  play1.setRelPosY(j*32);
+		  mon1->setRelPosX(i*32);
+		  mon1->setRelPosY(j*32);
 	  } else if(fh.getMap().at(i,j) == -2){
-		  play2.setX(i*32);
-		  play2.setY(j*32);
+		  play2.setRelPosX(i*32);
+		  play2.setRelPosY(j*32);
 	  }
     }
   }
@@ -107,9 +111,6 @@ int main()
   fh.getMusic().play();
 
   Camera view{play1, 1024,800};
-  
-  Monster* mon1 = new Monster{10, 320, 10, 10}; 
-  monsters.push_back(mon1);
   
   static int frame = 0;
 

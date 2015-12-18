@@ -58,9 +58,10 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
  //Checks the distance between the monster and player. 
  //If the distance in less than 40px (both X and Y value) and atleast 3 seconds
  //have passed since the last attack the monster attacks the player
-	if(clock.getElapsedTime().asMilliseconds() >=2000)
+	if(clock.getElapsedTime().asMilliseconds() >=3000)
 	{
-		if(abs(getX()-play.getX() <=60 && abs(getY()-play.getY() <=60)))
+		if((std::abs(getX()-play.getX()) >=0 && std::abs(getX()-play.getX())<=40)|| 
+		  (std::abs(play.getX()-getX()) <=0 && std::abs(play.getX()-getX())>=-40))
 		{	
 			this->attack(play);	
 		}
@@ -70,6 +71,7 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
 		{
 			this->attack(play);
 		}
+	
 	clock.restart();
   }
 	updateTexture();
