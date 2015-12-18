@@ -23,6 +23,8 @@ private:
 	void attack(Player&);
 	bool goRight{true};
 	int damage;
+	int width{42};
+	int height{62};
 };
 
 #endif
