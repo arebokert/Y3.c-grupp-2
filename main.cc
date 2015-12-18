@@ -82,11 +82,17 @@ int main()
   for(int i{0}; i < 256; i++) {
     for(int j{0}; j < 256; j++) {
 	 
-      if(fh.getMap().at(i,j) != 0) {
+      if(fh.getMap().at(i,j) > 0) {
 	renderSprite.setPosition(i*32, j*32);
 	renderSprite.setTexture(fh.getBlock(fh.getMap().at(i,j)));
 	off_screen.draw(renderSprite);
-      }
+      } else if(fh.getMap().at(i,j) == -1){
+		  play1.setRelPosX(i*32);
+		  play1.setRelPosY(j*32);
+	  } else if(fh.getMap().at(i,j) == -2){
+		  play2.setX(i*32);
+		  play2.setY(j*32);
+	  }
     }
   }
   off_screen.display();

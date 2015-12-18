@@ -20,6 +20,8 @@ public:
 	int setHp(int h){hp = h;};
 	int setX(int x){posX = x;};
 	int setY(int y){posY = y;};
+	int setRelPosX(int x){relPosX = static_cast<double>(x);};
+	int setRelPosY(int y){relPosY = static_cast<double>(y);};
 	void setHpString(std::string hs){hpString = hs;};
 	int setTexId(int txId){texId = txId;};
 	//void update(Matrix&) {};
