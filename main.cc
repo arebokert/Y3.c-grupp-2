@@ -58,13 +58,30 @@ int main()
   sf::Clock timer{};
   sf::Time deltaTime{sf::milliseconds(2)};
   
+  //Read font
+  //-----------------------------------------
+  sf::Font font;
+  font.loadFromFile("./font.ttf");
+  //-----------------------------------------
+  
+  //Set player name textures
+  //-----------------------------------------
+  sf::Text playerNameOne(play1Name, font);
+  sf::Text playerNameTwo(play2Name, font);
+  playerNameOne.setCharacterSize(20);
+  playerNameOne.setStyle(sf::Text::Bold);
+  playerNameOne.setColor(sf::Color::Red); 
+  if(multiplayer){
+	  playerNameTwo.setCharacterSize(20);
+	  playerNameTwo.setStyle(sf::Text::Bold);
+	  playerNameTwo.setColor(sf::Color::Green); 
+  }
+  //-----------------------------------------
   
   //Renders a hp bar over players
   //-----------------------------------------
   std::string hpP1{play1.getHpString()};
   std::string hpP2{play2.getHpString()};
-  sf::Font font;
-  font.loadFromFile("./font.ttf");
   sf::Text hpTextP1(hpP1, font);
   sf::Text hpTextP2(hpP2, font);
   hpTextP1.setCharacterSize(20);
@@ -304,10 +321,7 @@ int main()
 
     
     //Draws the playernames on the screen
-	sf::Text playerNameOne(play1Name, font);
-	playerNameOne.setCharacterSize(20);
-	playerNameOne.setStyle(sf::Text::Bold);
-	playerNameOne.setColor(sf::Color::Red); 
+	
 	playerNameOne.setPosition(play1.getX(), play1.getY()-60);
 	hpTextP1.setPosition(play1.getX(), play1.getY()-30);
 	hpTextP1.setString(play1.getHpString());
@@ -316,10 +330,6 @@ int main()
     
 	
 	if(multiplayer) {
-		sf::Text playerNameTwo(play2Name, font);
-		playerNameTwo.setCharacterSize(20);
-		playerNameTwo.setStyle(sf::Text::Bold);
-		playerNameTwo.setColor(sf::Color::Green); 
 		playerNameTwo.setPosition(play2.getX(), play2.getY()-60);
 		hpTextP2.setPosition(play2.getX(), play2.getY()-30);
 		hpTextP2.setString(play2.getHpString());
