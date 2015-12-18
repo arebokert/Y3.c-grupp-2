@@ -19,6 +19,13 @@ int main()
   string input = "";
   string play1Name = "";
   string play2Name = "";
+  int p1X{0};
+  int p1Y{0};
+  int p2X{0};
+  int p2Y{0};
+  int movementSpeed{320};
+  int playerHp{5};
+  int monsterHp{3};
   vector<Bullet*> bullets;
   vector<Monster*> monsters;
   
@@ -46,11 +53,11 @@ int main()
   }
 	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
-  Player play1{10, 320, 10, 10};
+  Player play1{playerHp, movementSpeed, p1X, p1Y};
   play1.pickUpWeapon(new Weapon{10,10,0,200,10,1000});
-  Player play2{10, 320, 10, 10};
+  Player play2{playerHp, movementSpeed, p2X, p2Y};
   play2.pickUpWeapon(new Weapon{10,10,0,200,10,1000});
-  Monster* mon1 = new Monster{10, 320, 10, 10}; 
+  Monster* mon1 = new Monster{monsterHp, movementSpeed, 10, 10}; 
   monsters.push_back(mon1);
   
   FileHandler fh{"Fieldtest1"};
@@ -108,12 +115,16 @@ int main()
 	off_screen.draw(renderSprite);
       } else if(fh.getMap().at(i,j) == -1){
 		  play1.setRelPosX(i*32);
+		  p1X = i*32;
 		  play1.setRelPosY(j*32);
-		  mon1->setRelPosX(i*32);
-		  mon1->setRelPosY(j*32);
-	  } else if(fh.getMap().at(i,j) == -2){
+		  p1Y = j*32;
+		  mon1->setRelPosX((i*32)-5);
+		  mon1->setRelPosY((j*32)-5);
+	  } else if(fh.getMap().at(i,j) == -2 && multiplayer){
 		  play2.setRelPosX(i*32);
+		  p2X = i*32;
 		  play2.setRelPosY(j*32);
+		  p2Y = j*32;
 	  }
     }
   }
@@ -249,6 +260,18 @@ int main()
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);
+    
+    if(play1.getHp() < 0){
+		play1.setRelPosX(p1X);
+		play1.setRelPosY(p1Y);
+		play1.setHp(playerHp);
+	}
+	
+	if(play2.getHp() < 0 && multiplayer){
+		play2.setRelPosX(p2X);
+		play2.setRelPosY(p2Y);
+		play2.setHp(playerHp);
+	}
     
     if (!bullets.empty()) {
 
