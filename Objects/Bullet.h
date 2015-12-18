@@ -10,11 +10,13 @@ class Bullet : public Objects
  public:
  Bullet(int x, int y, int texID, int w_speed, int w_damage) : Objects(x, y, texID), speed{w_speed}, damage{w_damage}{}
  ~Bullet() = default;
- void drawBullet(int, int, int, const int);
- void update() const override;
+ void initBullet(const int);
+ bool drawBullet(Matrix&, const int);
+ void update(Matrix&, const int) const override{}
 
- Bullet& operator=(const Bullet&); 
+ Bullet& operator=(const Bullet&) = default; 
  Bullet(const Bullet&) = default;
+
 
  protected:
  //Bullet(const Bullet&);

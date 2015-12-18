@@ -2,6 +2,7 @@
 #define WEAPON_H
 #include "Objects.h"
 #include "Bullet.h"
+#include "../Tools/Matrix.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
@@ -17,8 +18,8 @@ class Weapon : public Objects
  ~Weapon() = default;
  Weapon& operator=(const Weapon&) = delete; 
  void fire(int, int, int, const int);
- void update() const;
- void update(int, int, int, const int);
+ void update(Matrix&, const int) const override;
+ void update(Matrix&, int, int, int, const int);
  void setEquipped();
  int getTexDirected(int direction);
  void getBullets();
@@ -32,7 +33,7 @@ class Weapon : public Objects
  int damage;
  int lockout;
  bool equipped; 
- std::vector<Bullet> bullets;
+ std::vector<Bullet*> bullets;
 
  sf::Time cooldown;
  sf::Clock timer;

@@ -1,5 +1,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
+#include "../Tools/Matrix.h"
 #include <SFML/Graphics.hpp>
 
 class Objects{
@@ -7,7 +8,7 @@ class Objects{
   ~Objects() = default;
  Objects(int x, int y, int texID) : posX(x), posY(y), texID(texID){};
 
-  virtual void update() const = 0;
+  virtual void update(Matrix&, const int) const = 0;
   int getTexID() const {return texID;};
   int getX() const {return posX;};
   int getY() const {return posY;};

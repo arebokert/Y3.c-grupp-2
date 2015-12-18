@@ -1,5 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
+
+#include "../Tools/Matrix.h"
 #include <string>
 
 class Character {

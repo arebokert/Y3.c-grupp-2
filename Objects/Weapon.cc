@@ -17,9 +17,9 @@ void Weapon::fire(int rel_x, int rel_y, int direction, const int frame)
   }
   
   lockout = frame + cd;
-  Bullet b{rel_x, rel_y, direction, speed, damage};
+  Bullet* b = new Bullet{rel_x, rel_y, direction, speed, damage};
   bullets.push_back(b);
-  b.drawBullet(rel_x, rel_y, direction, frame);
+  b->initBullet(frame);
   cout << "Bam!" << endl;
 }
 
@@ -38,16 +38,12 @@ int Weapon::getTexDirected(int direction){
 	}
 }
 
-void Weapon::update() const
+void Weapon::update(Matrix& mat, const int frame) const
 {
-	if (!bullets.empty()) {
-		for(auto it = bullets.begin(); it != bullets.end(); it++) {
-			it->update();
-		}
-	}
+	return;
 }
 
-void Weapon::update(int rel_x, int rel_y, int direction, const int frame)
+void Weapon::update(Matrix& mat, int rel_x, int rel_y, int direction, const int frame)
 {
 	//Protection against frame overflowing, thus causing weapons to lock.
 	if (frame == 0)
@@ -74,7 +70,20 @@ void Weapon::update(int rel_x, int rel_y, int direction, const int frame)
 
 	setY(rel_y + 25);
 	
-	if(frame < cd) {
-		lockout = true;
+	if (!bullets.empty()) {
+		/*for(auto it = bullets.begin(); it != bullets.end(); it++) {
+			if(!it->drawBullet(mat, frame)){
+				it = bullets.erase(it);
+			}
+		}*/
+		
+		for (int i = 0; i < bullets.size(); ++i)
+		{
+			if (!bullets[i]->drawBullet(mat, frame)) 
+			{		
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+			}
+		}
 	}
 }

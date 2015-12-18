@@ -50,9 +50,9 @@ int main()
 	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
-  play1.pickUpWeapon(new Weapon{10,10,0,10,10,1300});
+  play1.pickUpWeapon(new Weapon{10,10,0,200,10,1300});
   Player play2{10, 320, 10, 10};
-  play2.pickUpWeapon(new Weapon{10,10,0,10,10,1300});
+  play2.pickUpWeapon(new Weapon{10,10,0,200,10,1300});
   
   FileHandler fh{"Fieldtest1"};
 
