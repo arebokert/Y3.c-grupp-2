@@ -32,13 +32,10 @@ int main()
     }
   } while(input != "Y" && input != "y" && input != "n" && input != "N");
 	
-  cout << "Enter the name of player 1 below: " << endl;
-  getline(cin, play1Name);
-  
-  while (play1Name.empty()){
-		cout << "Enter a name, damn it:" << endl;
-		getline(cin, play1Name);
-  }  
+  do{
+	cout << "Enter the name of player 1 below: " << endl;
+	getline(cin, play1Name);
+  } while (play1Name.empty());
   
   if(multiplayer) {
 	cout << "Enter the name of player 2 below: " << endl;
