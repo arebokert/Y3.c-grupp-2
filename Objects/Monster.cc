@@ -67,14 +67,15 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
 		  (std::abs(play.getX()-getX()) <=0 && std::abs(play.getX()-getX())>=-40))
 		{	
 			this->attack(play);	
+			clock.restart();
 		} 
 	
 		else if ((std::abs(getX()-play.getX()) >=0 && std::abs(getX()-play.getX())<=40)|| 
 			(std::abs(play.getX()-getX()) <=0 && std::abs(play.getX()-getX())>=-40))
 		{
 			this->attack(play);
+			clock.restart();
 		}
-		clock.restart();
   }
 	updateTexture();
 }
