@@ -33,22 +33,16 @@ int main()
     }
   } while(input != "Y" && input != "y" && input != "n" && input != "N");
 	
-  cout << "Enter the name of player 1 below: " << endl;
-  getline(cin, play1Name);
-  
-  while (play1Name.empty()){
-		cout << "Enter a name, damn it:" << endl;
-		getline(cin, play1Name);
-  }  
+  do{
+	cout << "Enter the name of player 1 below: " << endl;
+	getline(cin, play1Name);
+  } while (play1Name.empty());
   
   if(multiplayer) {
-	cout << "Enter the name of player 2 below: " << endl;
-	getline(cin, play2Name);
-	
-	while (play2Name.empty() || play2Name.compare(play1Name) == 0){
-		cout << "Name is either empty or already taken! Try again, knucklehead: " << endl;
-		getline(cin, play2Name);
-	}  
+	do{
+	   cout << "Enter the name of player 2 below (can not be the same as player 1!): " << endl;
+	   getline(cin, play2Name);
+	} while (play2Name.empty() || play2Name.compare(play1Name) == 0);
   }
 	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
