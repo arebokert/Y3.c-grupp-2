@@ -221,7 +221,7 @@ int main()
 	  else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && multiplayer) {
 		play2.switchWeapon(1);  
 	  }
-	    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && multiplayer) {
+	  else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && multiplayer) {
 		play2.switchWeapon(2);  
 	  }
 
@@ -232,7 +232,9 @@ int main()
 		play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, frame);
 	  }
       //Monster-update
-      mon1->update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
+      if(!monsters.empty()){
+		mon1->update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
+	  }
       //Object-update
       
       //Camera-update
@@ -263,6 +265,7 @@ int main()
 			else if(!monsters.empty()){
 				for(int j = 0; j < monsters.size(); ++j){
 					if(monsters[j]->isHit(bullets[i]->getX(), bullets[i]->getY())){
+						
 						if(monsters[j]->inflictDamage(bullets[i]->getDamage())){
 							delete monsters[j];
 							monsters.erase(monsters.begin() + j);
@@ -289,13 +292,13 @@ int main()
 			}
 		}
 	}
-	
     
     sf::Sprite monsterSprite;
-    monsterSprite.setPosition(mon1->getX(), mon1->getY());
-    monsterSprite.setTexture(fh.getMonster(mon1->getTexId()));
-    window.draw(monsterSprite);
-
+    if(!monsters.empty()){
+		monsterSprite.setPosition(mon1->getX(), mon1->getY());
+		monsterSprite.setTexture(fh.getMonster(mon1->getTexId()));
+		window.draw(monsterSprite);
+	}
     sf::Sprite playerSprite;
     playerSprite.setPosition(play1.getX(), play1.getY());
     playerSprite.setTexture(fh.getPlayer(play1.getTexId()));
