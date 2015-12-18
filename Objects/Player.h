@@ -19,7 +19,7 @@ public:
 	void moveLeft();
 	void moveRight();
 	void jump();
-	void fire(const int, const int);
+	bool fire(const int, const int);
 	void update(Matrix&, double, const int);
 	bool pickUpWeapon(Weapon*);
 	void switchWeapon(int);

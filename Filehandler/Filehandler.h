@@ -20,6 +20,8 @@ public:
 	void loadMonster();
 	void loadWeapons();
 	void loadSounds();
+	void loadBullets();
+	sf::Texture& getBullet(int) const;
 	sf::Texture& getBlock(int) const;
 	sf::Texture& getPlayer(int) const;
 	sf::Texture& getMonster(int) const;
@@ -33,6 +35,7 @@ private:
 	sf::Texture* player{nullptr};
 	sf::Texture* monster{nullptr};
 	sf::Texture* weapons{nullptr};
+	sf::Texture* bullets{nullptr};
 	
 	Matrix map;
 	std::string projectName;

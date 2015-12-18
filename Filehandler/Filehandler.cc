@@ -28,6 +28,7 @@ FileHandler::FileHandler(const string& project) {
   thread t4(&FileHandler::loadSounds, this);
   thread t5(&FileHandler::loadMonster, this);
   thread t6(&FileHandler::loadWeapons, this);
+  thread t7(&FileHandler::loadBullets, this);
 
   //Vänta på threads med thread.join()
   t1.join();
@@ -36,6 +37,7 @@ FileHandler::FileHandler(const string& project) {
   t4.join();
   t5.join();
   t6.join();
+  t7.join();
   //Loading player seperately due to hardware concurrency
   //loadPlayer();
 }
@@ -181,6 +183,32 @@ void FileHandler::loadWeapons() {
     
 		s = "Data/Weapons/";
    }
+}
+
+void FileHandler::loadBullets() {
+	concurrent.lock();
+	bullets = new sf::Texture[2];
+	concurrent.unlock();
+
+	string s1{"Data/Bullet/-1.png"};
+	string s2{"Data/Bullet/1.png"};
+
+	
+	cout << s1 << endl << s2 << endl;
+   
+	if(!bullets[0].loadFromFile(s1))
+		cout << "Couldn't load BulletTex: " << s1 << endl;
+	
+	if (!bullets[1].loadFromFile(s2))
+		cout << "Couldn't load BulletTex: " << s2 << endl;
+}
+
+sf::Texture& FileHandler::getBullet(int i) const {
+	
+	if(i < 0)
+		return bullets[1];
+	else
+		return bullets[0];
 }
 
 sf::Texture& FileHandler::getBlock(int i) const {

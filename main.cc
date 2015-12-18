@@ -8,6 +8,7 @@
 #include "Objects/Player.h"
 #include "Objects/Weapon.h"
 #include "Objects/Monster.h"
+#include "Objects/Bullet.h"
 #include "Graphics/Camera.h"
 
 using namespace std;
@@ -18,6 +19,7 @@ int main()
   string input = "";
   string play1Name = "";
   string play2Name = "";
+  vector<Bullet*> bullets;
   
   do{
     cout << "Multiplayer mode? y/n" << endl;
@@ -138,7 +140,22 @@ int main()
 		play1.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
-		play1.fire(play1.getLastDirection(), frame);
+		if(play1.fire(play1.getLastDirection(), frame)){
+			
+			int offsetX;
+			
+			if(play1.getLastDirection() == -1)
+				offsetX = -16;
+			else
+				offsetX = 25;
+			
+			Bullet* b = new Bullet( play1.getX() + offsetX, play1.getY() + 25, 
+									play1.getLastDirection(), 
+									play1.getActiveWeapon().getSpeed(), 
+									play1.getActiveWeapon().getDamage());
+			bullets.push_back(b);
+			b->initBullet(frame);
+		}
       }
 	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) {
 		play1.switchWeapon(0);  
@@ -193,11 +210,29 @@ int main()
       deltaCounter = deltaCounter + deltaTime;
 
     } while(deltaCounter < sf::milliseconds(14));
-
+	
     
     window.clear();
     window.setView(view.getView());
     window.draw(off_sprite);
+    
+    if (!bullets.empty()) {
+
+		for (int i = 0; i < bullets.size(); ++i)
+		{
+			if (!bullets[i]->drawBullet(fh.getMap(), frame)) 
+			{		
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+			}
+			else{
+				sf::Sprite bulletSprite;
+				bulletSprite.setPosition(bullets[i]->getX(), bullets[i]->getY());
+				bulletSprite.setTexture(fh.getBullet(bullets[i]->getTexID()));
+				window.draw(bulletSprite);
+			}
+		}
+	}
     
     sf::Sprite monsterSprite;
     monsterSprite.setPosition(mon1.getX(), mon1.getY());

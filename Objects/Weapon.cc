@@ -10,17 +10,16 @@
 
 using namespace std;
 
-void Weapon::fire(int rel_x, int rel_y, int direction, const int frame)
+bool Weapon::fire(int rel_x, int rel_y, int direction, const int frame)
 { 
   if(frame < lockout ){
-	return;
+	return false;
   }
   
   lockout = frame + cd;
-  Bullet* b = new Bullet{rel_x, rel_y, direction, speed, damage};
-  bullets.push_back(b);
-  b->initBullet(frame);
-  cout << "Bam!" << endl;
+  //Bullet* b = new Bullet{rel_x, rel_y, direction, speed, damage};
+  //bullets.push_back(b);
+  return true;
 }
 
 void Weapon::setEquipped()
@@ -69,21 +68,4 @@ void Weapon::update(Matrix& mat, int rel_x, int rel_y, int direction, const int 
 	}
 
 	setY(rel_y + 25);
-	
-	if (!bullets.empty()) {
-		/*for(auto it = bullets.begin(); it != bullets.end(); it++) {
-			if(!it->drawBullet(mat, frame)){
-				it = bullets.erase(it);
-			}
-		}*/
-		
-		for (int i = 0; i < bullets.size(); ++i)
-		{
-			if (!bullets[i]->drawBullet(mat, frame)) 
-			{		
-				delete bullets[i];
-				bullets.erase(bullets.begin() + i);
-			}
-		}
-	}
 }

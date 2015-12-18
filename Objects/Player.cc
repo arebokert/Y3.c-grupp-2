@@ -49,10 +49,11 @@ Weapon& Player::getActiveWeapon(){
 	return *activeWeapon;
 }
 
-void Player::fire(const int direction, const int frame){
-  if(activeWeapon != nullptr){
-    activeWeapon->fire(static_cast<int>(relPosX), static_cast<int>(relPosY), direction, frame);
-  }
+bool Player::fire(const int direction, const int frame){
+  if(activeWeapon != nullptr)
+    return activeWeapon->fire(static_cast<int>(relPosX), static_cast<int>(relPosY), direction, frame);
+  
+  return false;
 }
 
 //Function that updates the hp bar over the player
@@ -119,6 +120,7 @@ void Player::update(Matrix& mat, double delta, const int frame) {
   //calls function that updates the hp bar over the player
   updateHpString();
   updateTexture();
+
   //activeWeapon->update(posX, posY, direction);
 }
 void Player::updateTexture()

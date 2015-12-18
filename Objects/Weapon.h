@@ -17,12 +17,14 @@ class Weapon : public Objects
  Weapon(const Weapon&);
  ~Weapon() = default;
  Weapon& operator=(const Weapon&) = delete; 
- void fire(int, int, int, const int);
+ bool fire(int, int, int, const int);
  void update(Matrix&, const int) const override;
  void update(Matrix&, int, int, int, const int);
  void setEquipped();
  int getTexDirected(int direction);
  void getBullets();
+ int getSpeed(){return speed;}
+ int getDamage(){return damage;}
 
  private:
  Weapon() = default;
