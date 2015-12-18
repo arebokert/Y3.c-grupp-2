@@ -63,19 +63,11 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
  //have passed since the last attack the monster attacks the player
 	if(clock.getElapsedTime().asMilliseconds() >=3000)
 	{
-		if((std::abs(getX()-play.getX()) >=0 && std::abs(getX()-play.getX())<=40)|| 
-		  (std::abs(play.getX()-getX()) <=0 && std::abs(play.getX()-getX())>=-40))
+		 if(abs(getX()-play.getX()) <=60 && abs(getY()-play.getY()) <=60)
 		{	
 			this->attack(play);	
 			clock.restart();
 		} 
-	
-		else if ((std::abs(getX()-play.getX()) >=0 && std::abs(getX()-play.getX())<=40)|| 
-			(std::abs(play.getX()-getX()) <=0 && std::abs(play.getX()-getX())>=-40))
-		{
-			this->attack(play);
-			clock.restart();
-		}
   }
 	updateTexture();
 }
@@ -87,7 +79,6 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
   }
   void Monster::updateTexture()
   {
-	  
 	  int elapsedTimeMonster{monsterAnimationTimer.getElapsedTime().asMilliseconds()};
       if(elapsedTimeMonster >= 100)
       {
@@ -102,7 +93,6 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
         {
 			setTexId(counterMonster);
 		} 
-       
        counterMonster++;
        monsterAnimationTimer.restart();   
       }
