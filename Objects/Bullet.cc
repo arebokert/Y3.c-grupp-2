@@ -9,7 +9,6 @@ using namespace std;
 void Bullet::initBullet(const int frame)
 {
 	setFrameStart(frame);
-	cout << getX() << " " << getY() << " " << texID;
 }
 
 bool Bullet::drawBullet(Matrix& mat, const int frame)
@@ -29,8 +28,11 @@ bool Bullet::drawBullet(Matrix& mat, const int frame)
 		return false;
 	}
 	
-	
 	return true;
+}
+
+int Bullet::getDamage(){
+	return damage;
 }
 
 void Bullet::setFrameStart(const int frame)

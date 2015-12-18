@@ -12,6 +12,8 @@ public:
 		relPosY = static_cast<double>(y);
 	};
 	void update(Matrix&, double, Player&);
+	bool isHit(int, int);
+	bool inflictDamage(int);
 	
 private:
 	sf::Clock monsterAnimationTimer{};
