@@ -13,7 +13,7 @@ class Bullet : public Objects
  void initBullet(const int);
  bool drawBullet(Matrix&, const int);
  void update(Matrix&, const int) const override{}
-
+ int getDamage();
  Bullet& operator=(const Bullet&) = default; 
  Bullet(const Bullet&) = default;
 

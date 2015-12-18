@@ -20,6 +20,7 @@ int main()
   string play1Name = "";
   string play2Name = "";
   vector<Bullet*> bullets;
+  vector<Monster*> monsters;
   
   do{
     cout << "Multiplayer mode? y/n" << endl;
@@ -46,9 +47,9 @@ int main()
 	
   sf::RenderWindow window(sf::VideoMode(1024, 800), "SFML works!");
   Player play1{10, 320, 10, 10};
-  play1.pickUpWeapon(new Weapon{10,10,0,200,10,1300});
+  play1.pickUpWeapon(new Weapon{10,10,0,200,10,1000});
   Player play2{10, 320, 10, 10};
-  play2.pickUpWeapon(new Weapon{10,10,0,200,10,1300});
+  play2.pickUpWeapon(new Weapon{10,10,0,200,10,1000});
   
   FileHandler fh{"Fieldtest1"};
 
@@ -107,7 +108,8 @@ int main()
 
   Camera view{play1, 1024,800};
   
-  Monster mon1{10, 320, 10, 10}; 
+  Monster* mon1 = new Monster{10, 320, 10, 10}; 
+  monsters.push_back(mon1);
   
   static int frame = 0;
 
@@ -179,7 +181,21 @@ int main()
 		play2.jump();
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && multiplayer) {
-		play2.fire(play1.getLastDirection(), frame);
+		if(play2.fire(play2.getLastDirection(), frame)){
+			int offsetX;
+			
+			if(play2.getLastDirection() == -1)
+				offsetX = -16;
+			else
+				offsetX = 25;
+			
+			Bullet* b = new Bullet( play2.getX() + offsetX, play2.getY() + 25, 
+									play2.getLastDirection(), 
+									play2.getActiveWeapon().getSpeed(), 
+									play2.getActiveWeapon().getDamage());
+			bullets.push_back(b);
+			b->initBullet(frame);
+		}
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && multiplayer) {
 		play2.switchWeapon(0);  
@@ -198,7 +214,7 @@ int main()
 		play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, frame);
 	  }
       //Monster-update
-      mon1.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
+      mon1->update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
       //Object-update
       
       //Camera-update
@@ -225,6 +241,28 @@ int main()
 				delete bullets[i];
 				bullets.erase(bullets.begin() + i);
 			}
+			
+			else if(!monsters.empty()){
+				for(int j = 0; j < monsters.size(); ++j){
+					if(monsters[j]->isHit(bullets[i]->getX(), bullets[i]->getY())){
+						if(monsters[j]->inflictDamage(bullets[i]->getDamage())){
+							delete monsters[j];
+							monsters.erase(monsters.begin() + j);
+								
+							delete bullets[i];
+							bullets.erase(bullets.begin() + i);
+							break;
+						}
+						break;
+					}
+					else{
+						sf::Sprite bulletSprite;
+						bulletSprite.setPosition(bullets[i]->getX(), bullets[i]->getY());
+						bulletSprite.setTexture(fh.getBullet(bullets[i]->getTexID()));
+						window.draw(bulletSprite);
+					}
+				}   
+			}
 			else{
 				sf::Sprite bulletSprite;
 				bulletSprite.setPosition(bullets[i]->getX(), bullets[i]->getY());
@@ -233,10 +271,11 @@ int main()
 			}
 		}
 	}
+	
     
     sf::Sprite monsterSprite;
-    monsterSprite.setPosition(mon1.getX(), mon1.getY());
-    monsterSprite.setTexture(fh.getMonster(mon1.getTexId()));
+    monsterSprite.setPosition(mon1->getX(), mon1->getY());
+    monsterSprite.setTexture(fh.getMonster(mon1->getTexId()));
     window.draw(monsterSprite);
 
     sf::Sprite playerSprite;
@@ -244,7 +283,7 @@ int main()
     playerSprite.setTexture(fh.getPlayer(play1.getTexId()));
     window.draw(playerSprite);
     
-    sf::Sprite weaponSpriteP1{};
+    sf::Sprite weaponSpriteP1;
     weaponSpriteP1.setPosition(play1.getActiveWeapon().getX(), play1.getActiveWeapon().getY());
     weaponSpriteP1.setTexture(fh.getWeapon(play1.getActiveWeapon().getTexDirected(play1.getLastDirection())));
     window.draw(weaponSpriteP1);
@@ -253,7 +292,7 @@ int main()
     playerSprite2.setPosition(play2.getX(), play2.getY());
     playerSprite2.setTexture(fh.getPlayer(play2.getTexId()));
     
-    sf::Sprite weaponSpriteP2{};
+    sf::Sprite weaponSpriteP2;
     weaponSpriteP2.setPosition(play2.getActiveWeapon().getX(), play2.getActiveWeapon().getY());
     weaponSpriteP2.setTexture(fh.getWeapon(play2.getActiveWeapon().getTexDirected(play2.getLastDirection())));
     

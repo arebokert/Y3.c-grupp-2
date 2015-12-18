@@ -103,3 +103,21 @@ void Monster::update(Matrix& mat, double delta, Player& play) {
       }
   }
   
+  bool Monster::inflictDamage(int bulletDamage){
+	hp -= bulletDamage;
+	if(getHp() <= 0)
+		return true;
+	
+	return false;
+  }
+  
+  //Check if the 'box' gets hit.
+  bool Monster::isHit(int bulletX, int bulletY){
+	if((bulletX == getX() || bulletX == getX()-20) && (bulletY == getY() || 
+		(bulletY <= getY()+40 && bulletY >= getY()))){
+		return true;
+	}
+	
+	return false;  
+  }
+  

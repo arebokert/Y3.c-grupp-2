@@ -12,13 +12,11 @@ using namespace std;
 
 bool Weapon::fire(int rel_x, int rel_y, int direction, const int frame)
 { 
-  if(frame < lockout ){
+  if(frame < lockout){
 	return false;
   }
   
   lockout = frame + cd;
-  //Bullet* b = new Bullet{rel_x, rel_y, direction, speed, damage};
-  //bullets.push_back(b);
   return true;
 }
 
