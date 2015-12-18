@@ -243,7 +243,13 @@ int main()
 		play2.update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, frame);
 	  }
       //Monster-update
-      mon1->update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
+       mon1->update(fh.getMap(), static_cast<double>(deltaTime.asMicroseconds())/1000000, play1);
+       if(multiplayer)
+      {
+		 mon1->update(fh.getMap(), 0, play2); 
+	  }
+	  
+	  
       //Object-update
       
       //Camera-update
