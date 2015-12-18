@@ -82,11 +82,11 @@ void FileHandler::loadBlocks() {
   input.open("Data/Blocks/test");
   
   concurrent.lock();
-  blocks = new sf::Texture[16];
+  blocks = new sf::Texture[18];
   concurrent.unlock();
 
   string s{"Data/Blocks/"};
-  for(int i = 0; i <= 15; i++) {
+  for(int i = 0; i < 18; i++) {
 
     s.append(to_string(i));
     s.append(".png");
