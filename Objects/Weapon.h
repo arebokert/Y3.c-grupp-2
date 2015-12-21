@@ -33,7 +33,7 @@ class Weapon : public Objects
  int cd;
  int speed;
  int damage;
- int lockout;
+ int lockout{0};
  bool equipped; 
  std::vector<Bullet*> bullets;
 
