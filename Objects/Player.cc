@@ -9,8 +9,14 @@ using namespace std;
 Player::~Player() noexcept {
   //Orsakar fel "Corrupted double-linked list"
   delete activeWeapon;
+  activeWeapon = nullptr;
   
-  weapons.erase(weapons.begin(), weapons.end());
+  if(!weapons.empty()){
+    for(int i = 0; i < weapons.size(); ++i){
+      delete weapons[i];
+      weapons[i] = nullptr;
+    }
+  }
 }
 
 void Player::moveLeft() {
