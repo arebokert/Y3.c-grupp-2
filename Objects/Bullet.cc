@@ -23,7 +23,7 @@ bool Bullet::drawBullet(Matrix& mat, const int frame)
 	blocks *= texID;
 	
 	// Collision-detection
-	if (mat.at( (getX() / 32) + blocks, getY() / 32) != 0 || getX() < -500)
+	if (mat.at(floor(static_cast<double>(getX())/32), floor(static_cast<double>(getY())/32)) != 0)
 	{
 		return false;
 	}
