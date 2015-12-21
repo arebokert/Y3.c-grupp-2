@@ -17,6 +17,18 @@ using namespace std;
   4. Block: Innehåller antalet blocks samt namn för varje bild till blocken
 
 */
+FileHandler::~FileHandler() noexcept {
+  if(blocks != nullptr)
+    delete[] blocks;
+  if(player != nullptr)
+    delete[] player;
+  if(monster != nullptr)
+    delete[] monster;
+  if(weapons != nullptr)
+    delete[] weapons;
+  if(bullets != nullptr)
+    delete[] bullets;
+}
 
 FileHandler::FileHandler(const string& project) {
   projectName = project;

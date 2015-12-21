@@ -12,7 +12,7 @@ public:
 		setRelPosX(x);
 		setRelPosY(y);
 	};
-
+	~Player() noexcept;
 	int getLastDirection(){return lastDirection;};
 	int getDirection(){return direction;};
 	int setY(int y){posY = y;};

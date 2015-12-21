@@ -6,6 +6,13 @@
 #include <iostream>
 using namespace std;
 
+Player::~Player() noexcept {
+  //Orsakar fel "Corrupted double-linked list"
+  delete activeWeapon;
+  
+  weapons.erase(weapons.begin(), weapons.end());
+}
+
 void Player::moveLeft() {
   xSpeed = -speed;
   direction = -1;

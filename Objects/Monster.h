@@ -11,6 +11,7 @@ public:
 		relPosX = static_cast<double>(x);
 		relPosY = static_cast<double>(y);
 	};
+	~Monster() = default;
 	void update(Matrix&, double, Player&);
 	bool isHit(int, int);
 	bool inflictDamage(int);

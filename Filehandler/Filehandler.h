@@ -12,7 +12,7 @@ class FileHandler {
 public:
 	FileHandler() = default;
 	FileHandler(const std::string&);
-	~FileHandler() = default;
+	~FileHandler() noexcept;
 	Matrix& getMap() {return map;};
 	void loadMap();
 	void loadBlocks();
